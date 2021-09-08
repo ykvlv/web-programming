@@ -1,4 +1,11 @@
-.biq {
-    background-color: bisque;
-    color: cornflowerblue;
+body {
+    background-color: #C3D898;
+}
+
+h1 {
+    text-align: center;
+}
+
+.pretty {
+    color: #1C3144;
 }
