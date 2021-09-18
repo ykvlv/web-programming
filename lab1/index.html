@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Всем привет</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Лабораторная 1</title>
 </head>
 <body>
+<header>
+    <div class="container">
+        <img src="img/logo.png" class="logo" alt="Логотип">
+        <p class="author">Яковлев Григорий P3213</p>
+    </div>
+</header>
+
+<div class="container">
     <div>
-        <h1 class="pretty">Веб-программирование.</h1>
-        <h1> Лабораторная 1</h1>
-        <h3 class="pretty">Яковлев Григорий P3213</h3>
+        <h3>Веб-программирование</h3>
+        <h3>Лабораторная 1</h3>
         <h3>Вариант: 13214</h3>
     </div>
     <br>
     <form>
         <div>
-            Выберите X:<br>
+            <label for="ch_X0">Выберите X:</label>
+            <br>
             <input type="radio" id="ch_X-4"
                    name="choose_X" value="-4">
             <label for="ch_X-4">-4</label>
@@ -46,12 +54,13 @@
         </div>
         <br>
         <div>
-            <label for="ch_Y">Выберите Y:</label><br>
-            <input type="text" id="ch_Y" name="choose_Y"><br>
+            <label for="in_Y">Введите Y:</label><br>
+            <input type="text" id="in_Y" name="input_Y"><br>
         </div>
         <br>
         <div>
-            Выберите R:<br>
+            <label for="sl_R">Выберите R:</label>
+            <br>
             <select name="select_R" id="sl_R">
                 <option value="value1">1</option>
                 <option value="value2" selected>1.5</option>
@@ -65,7 +74,6 @@
             <button type="submit">Отправить</button>
         </div>
     </form>
-    <pre id="log">
-    </pre>
+</div>
 </body>
 </html>
