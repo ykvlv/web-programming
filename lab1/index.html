@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Лабораторная 1</title>
 </head>
 <body>
@@ -12,7 +12,6 @@
         <p class="author">Яковлев Григорий P3213</p>
     </div>
 </header>
-
 <div class="container">
     <div>
         <h3>Веб-программирование</h3>
@@ -20,47 +19,38 @@
         <h3>Вариант: 13214</h3>
     </div>
     <br>
-    <form>
+    <form onsubmit="return validateForm()" method="post">
         <div>
-            <label for="ch_X0">Выберите X:</label>
-            <br>
-            <input type="radio" id="ch_X-4"
-                   name="choose_X" value="-4">
+            <label for="ch_X0">Выберите X:</label><br>
+            <input type="radio" id="ch_X-4" name="choose_X" value="-4">
             <label for="ch_X-4">-4</label>
-            <input type="radio" id="ch_X-3"
-                   name="choose_X" value="-3">
+            <input type="radio" id="ch_X-3" name="choose_X" value="-3">
             <label for="ch_X-3">-3</label>
-            <input type="radio" id="ch_X-2"
-                   name="choose_X" value="-2">
+            <input type="radio" id="ch_X-2" name="choose_X" value="-2">
             <label for="ch_X-2">-2</label>
-            <input type="radio" id="ch_X-1"
-                   name="choose_X" value="-1">
+            <input type="radio" id="ch_X-1" name="choose_X" value="-1">
             <label for="ch_X-1">-1</label>
-            <input type="radio" id="ch_X0"
-                   name="choose_X" value="0">
+            <input type="radio" id="ch_X0" name="choose_X" value="0">
             <label for="ch_X0">0</label>
-            <input type="radio" id="ch_X1"
-                   name="choose_X" value="1">
+            <input type="radio" id="ch_X1" name="choose_X" value="1">
             <label for="ch_X1">1</label>
-            <input type="radio" id="ch_X2"
-                   name="choose_X" value="2">
+            <input type="radio" id="ch_X2" name="choose_X" value="2">
             <label for="ch_X2">2</label>
-            <input type="radio" id="ch_X3"
-                   name="choose_X" value="3">
+            <input type="radio" id="ch_X3" name="choose_X" value="3">
             <label for="ch_X3">3</label>
-            <input type="radio" id="ch_X4"
-                   name="choose_X" value="4">
-            <label for="ch_X4">4</label>
+            <input type="radio" id="ch_X4" name="choose_X" value="4">
+            <label for="ch_X4">4</label><br>
+            <span class="error" id="error_ch_X"></span>
         </div>
         <br>
         <div>
             <label for="in_Y">Введите Y:</label><br>
             <input type="text" id="in_Y" name="input_Y"><br>
+            <span class="error" id="error_in_Y"></span>
         </div>
         <br>
         <div>
-            <label for="sl_R">Выберите R:</label>
-            <br>
+            <label for="sl_R">Выберите R:</label><br>
             <select name="select_R" id="sl_R">
                 <option value="value1">1</option>
                 <option value="value2" selected>1.5</option>
@@ -68,6 +58,7 @@
                 <option value="value2" selected>2.5</option>
                 <option value="value3">3</option>
             </select>
+            <span class="error" id="error_sl_R"></span>
         </div>
         <br>
         <div>
@@ -76,4 +67,5 @@
     </form>
 </div>
 </body>
+<script src="scripts/main.js"></script>
 </html>

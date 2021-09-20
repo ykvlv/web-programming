@@ -9,6 +9,10 @@ header {
     max-width: 960px;
 }
 
+.error {
+    color: red;
+}
+
 h3 {
     text-align: center;
 }
@@ -24,7 +28,6 @@ div {
 
 .logo {
     text-align: left;
-    height: 100px;
 }
 
 .author {
