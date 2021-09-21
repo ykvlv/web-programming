@@ -33,8 +33,8 @@ function validateForm() {
     } else if (y.length > 15) {
         error_in_Y.textContent = "Длина Y не более 15 символов";
 
-    } else if (y <= -4.5 || y >= 4.5) {
-        error_in_Y.textContent = "Y в пределах (-4.5; 4.5)";
+    } else if (y <= -3 || y >= 5) {
+        error_in_Y.textContent = "Y в пределах (-3 ... 5)";
     } else {
         yValid = true;
         error_in_Y.textContent = "";

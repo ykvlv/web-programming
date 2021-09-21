@@ -3,68 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/table_style.css">
     <title>Лабораторная 1</title>
 </head>
 <body>
 <header>
     <div class="container">
-        <div class="logo">
-            <img src="img/logo.png" alt="Логотип">
+        <div class="uni_logo">
+            <img class="uni_logo" src="img/logo.png" alt="Логотип">
         </div>
     </div>
 </header>
-<img class="pre_back" src="img/back.png" alt="Закат">
-<div class="container">
-    <div>
-        <h3>Веб-программирование</h3>
-        <h3>Лабораторная 1</h3>
-        <h3>Лабораторная 1</h3>
+<img id="pre_back" src="img/back.png" alt="Зима">
+<div class="container" id="main">
+    <h3>Лабораторная 1. Чекер попадания. Вариант 13214</h3>
+    <div class="container">
+        <div id="float_left">
+            <form onsubmit="return validateForm()" method="post">
+                <div class="container">
+                    <label for="ch_X0">Выберите X:</label><br>
+                    <input type="radio" id="ch_X-4" name="choose_X" value="-4">
+                    <label for="ch_X-4">-4</label>
+                    <input type="radio" id="ch_X-3" name="choose_X" value="-3">
+                    <label for="ch_X-3">-3</label>
+                    <input type="radio" id="ch_X-2" name="choose_X" value="-2">
+                    <label for="ch_X-2">-2</label>
+                    <input type="radio" id="ch_X-1" name="choose_X" value="-1">
+                    <label for="ch_X-1">-1</label>
+                    <input type="radio" id="ch_X0" name="choose_X" value="0">
+                    <label for="ch_X0">0</label>
+                    <input type="radio" id="ch_X1" name="choose_X" value="1">
+                    <label for="ch_X1">1</label>
+                    <input type="radio" id="ch_X2" name="choose_X" value="2">
+                    <label for="ch_X2">2</label>
+                    <input type="radio" id="ch_X3" name="choose_X" value="3">
+                    <label for="ch_X3">3</label>
+                    <input type="radio" id="ch_X4" name="choose_X" value="4">
+                    <label for="ch_X4">4</label><br>
+                    <span class="error" id="error_ch_X"></span>
+                </div>
+                <div class="container">
+                    <label for="in_Y">Введите Y (-3 ... 5):</label><br>
+                    <input type="text" id="in_Y"><br>
+                    <span class="error" id="error_in_Y"></span>
+                </div>
+                <div class="container">
+                    <label for="sl_R">Выберите R:</label><br>
+                    <select id="sl_R">
+                        <option value="value0" selected>--- R ---</option>
+                        <option value="value1">1</option>
+                        <option value="value2">1.5</option>
+                        <option value="value3">2</option>
+                        <option value="value2">2.5</option>
+                        <option value="value3">3</option>
+                    </select><br>
+                    <span class="error" id="error_sl_R"></span>
+                </div>
+                <div class="container">
+                    <button type="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
+        <div id="float_right">
+            <img src="img/area.png" alt="Границы">
+        </div>
+        <div class="clear"></div>
+        <div class="container" id="improved">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">Band</th>
+                    <th scope="col">Year formed</th>
+                    <th scope="col">No. of Albums</th>
+                    <th scope="col">Most famous song</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th scope="row">Buzzcocks</th>
+                    <td>1976</td>
+                    <td>9</td>
+                    <td>Ever fallen in love (with someone you shouldn't've)</td>
+                </tr>
+                <tr>
+                    <th scope="row">The Clash</th>
+                    <td>1976</td>
+                    <td>6</td>
+                    <td>London Calling</td>
+                </tr>
+                <tr>
+                    <th scope="row">The Stranglers</th>
+                    <td>1974</td>
+                    <td>17</td>
+                    <td>No More Heroes</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-    <br>
-    <form onsubmit="return validateForm()" method="post">
-        <div class="container">
-            <label for="ch_X0">Выберите X:</label><br>
-            <input type="radio" id="ch_X-4" name="choose_X" value="-4">
-            <label for="ch_X-4">-4</label>
-            <input type="radio" id="ch_X-3" name="choose_X" value="-3">
-            <label for="ch_X-3">-3</label>
-            <input type="radio" id="ch_X-2" name="choose_X" value="-2">
-            <label for="ch_X-2">-2</label>
-            <input type="radio" id="ch_X-1" name="choose_X" value="-1">
-            <label for="ch_X-1">-1</label>
-            <input type="radio" id="ch_X0" name="choose_X" value="0">
-            <label for="ch_X0">0</label>
-            <input type="radio" id="ch_X1" name="choose_X" value="1">
-            <label for="ch_X1">1</label>
-            <input type="radio" id="ch_X2" name="choose_X" value="2">
-            <label for="ch_X2">2</label>
-            <input type="radio" id="ch_X3" name="choose_X" value="3">
-            <label for="ch_X3">3</label>
-            <input type="radio" id="ch_X4" name="choose_X" value="4">
-            <label for="ch_X4">4</label><br>
-            <span class="error" id="error_ch_X"></span>
-        </div>
-        <div class="container">
-            <label for="in_Y">Введите Y (-4.5; 4.5):</label><br>
-            <input type="text" id="in_Y"><br>
-            <span class="error" id="error_in_Y"></span>
-        </div>
-        <div class="container">
-            <label for="sl_R">Выберите R:</label><br>
-            <select id="sl_R">
-                <option value="value0" selected>--- R ---</option>
-                <option value="value1">1</option>
-                <option value="value2">1.5</option>
-                <option value="value3">2</option>
-                <option value="value2">2.5</option>
-                <option value="value3">3</option>
-            </select><br>
-            <span class="error" id="error_sl_R"></span>
-        </div>
-        <div class="container">
-            <button type="submit">Отправить</button>
-        </div>
-    </form>
 </div>
 </body>
 <script src="scripts/main.js"></script>

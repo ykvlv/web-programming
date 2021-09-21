@@ -1,14 +1,20 @@
-.logo {
+.clear {
+    clear: both;
+}
+
+.uni_logo {
     width: 360px;
     height: 40px;
 }
 
-.pre_back {
+#pre_back {
+    padding-top: 50px;
     width: 100%;
 }
 
 body {
     margin: 0 auto;
+    font-family: "ALSSchlangesans", serif;
 }
 
 header {
@@ -27,12 +33,40 @@ header {
     box-sizing: border-box;
 }
 
+#main {
+    background-color: rgb(191,218,217);
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+#float_left {
+    background-color: white;
+    border-radius: 20px;
+    width: 48.7%;
+    float: left;
+}
+
+#float_right {
+    text-align: right;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 48.7%;
+    float: right;
+}
+
+#improved {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
 .error {
-    color: red;
+    color: rgb(212, 87, 75);
 }
 
 h3 {
-    font-family: "Schlange", serif;
+    font-family: "ALSSchlangesans-Bold", serif;
     text-align: center;
 }
 
@@ -40,8 +74,25 @@ div {
     /*border: 1px solid black;*/
 }
 
+/* жирный шрифт итмо */
+@font-face {
+    font-family: 'font5913db4e49c28ce082b1f53d4c159e11';
+
+    src:    url('https://nomail.com.ua/files/eot/5913db4e49c28ce082b1f53d4c159e11.eot?#iefix') format('embedded-opentype'),
+    url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff'),
+    url('https://nomail.com.ua/files/woff2/5913db4e49c28ce082b1f53d4c159e11.woff2') format('woff2');
+}
+@font-face { font-family: 'ALSSchlangesans-Bold';  src: local('ALSSchlangesans-Bold'), url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff'); }
+
+
+
 /* шрифт итмо */
 @font-face {
-    font-family: 'Schlange';
-    src: url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff');
+    font-family: 'font38d7c5cc7266e131d0d119ca61766287';
+
+    src:    url('https://nomail.com.ua/files/eot/38d7c5cc7266e131d0d119ca61766287.eot?#iefix') format('embedded-opentype'),
+    url('https://nomail.com.ua/files/woff/38d7c5cc7266e131d0d119ca61766287.woff') format('woff'),
+    url('https://nomail.com.ua/files/woff2/38d7c5cc7266e131d0d119ca61766287.woff2') format('woff2');
 }
+@font-face { font-family: 'ALSSchlangesans';  src: local('ALSSchlangesans'), url('https://nomail.com.ua/files/woff/38d7c5cc7266e131d0d119ca61766287.woff') format('woff'); }
+
