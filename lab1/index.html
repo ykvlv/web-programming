@@ -44,20 +44,21 @@
         </div>
         <br>
         <div>
-            <label for="in_Y">Введите Y:</label><br>
-            <input type="text" id="in_Y" name="input_Y"><br>
+            <label for="in_Y">Введите Y (-4.5; 4.5):</label><br>
+            <input type="text" id="in_Y"><br>
             <span class="error" id="error_in_Y"></span>
         </div>
         <br>
         <div>
             <label for="sl_R">Выберите R:</label><br>
-            <select name="select_R" id="sl_R">
+            <select id="sl_R">
+                <option value="value0" selected>--- R ---</option>
                 <option value="value1">1</option>
-                <option value="value2" selected>1.5</option>
+                <option value="value2">1.5</option>
                 <option value="value3">2</option>
-                <option value="value2" selected>2.5</option>
+                <option value="value2">2.5</option>
                 <option value="value3">3</option>
-            </select>
+            </select><br>
             <span class="error" id="error_sl_R"></span>
         </div>
         <br>
