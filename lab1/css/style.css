@@ -1,12 +1,30 @@
+.logo {
+    width: 360px;
+    height: 40px;
+}
+
+.pre_back {
+    width: 100%;
+}
+
+body {
+    margin: 0 auto;
+}
+
 header {
+    background-color: rgb(93,118,120);
+    width: 100%;
     margin-bottom: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    position: fixed;
 }
 
 .container {
-    margin: auto;
-    padding: 15px;
+    width: 100%;
     max-width: 960px;
+    margin: auto;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .error {
@@ -14,24 +32,16 @@ header {
 }
 
 h3 {
+    font-family: "Schlange", serif;
     text-align: center;
-}
-
-body {
-    margin: 0 auto;
 }
 
 div {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
-
-.logo {
-    text-align: left;
-}
-
-.author {
-    text-align: center;
-    float: right;
-    margin: auto;
+/* шрифт итмо */
+@font-face {
+    font-family: 'Schlange';
+    src: url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff');
 }
