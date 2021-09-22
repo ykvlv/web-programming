@@ -18,11 +18,11 @@
 <div class="container" id="main">
     <h3>Лабораторная 1. Чекер попадания. Вариант 13214</h3>
     <div class="container">
-        <div id="float_left">
+        <div id="float_left" class="container">
             <form onsubmit="return validateForm()" method="post">
                 <div class="container">
                     <label for="ch_X0">Выберите X:</label><br>
-                    <input type="radio" id="ch_X-4" name="choose_X" value="-4">
+                    <input type="radio" id="ch_X-4" name="choose_X" value="-4" class="input_style">
                     <label for="ch_X-4">-4</label>
                     <input type="radio" id="ch_X-3" name="choose_X" value="-3">
                     <label for="ch_X-3">-3</label>
@@ -44,12 +44,12 @@
                 </div>
                 <div class="container">
                     <label for="in_Y">Введите Y (-3 ... 5):</label><br>
-                    <input type="text" id="in_Y"><br>
+                    <input type="text" id="in_Y" class="input_style"><br>
                     <span class="error" id="error_in_Y"></span>
                 </div>
                 <div class="container">
                     <label for="sl_R">Выберите R:</label><br>
-                    <select id="sl_R">
+                    <select id="sl_R" class="input_style">
                         <option value="value0" selected>--- R ---</option>
                         <option value="value1">1</option>
                         <option value="value2">1.5</option>
@@ -60,7 +60,7 @@
                     <span class="error" id="error_sl_R"></span>
                 </div>
                 <div class="container">
-                    <button type="submit">Отправить</button>
+                    <button type="submit" class="input_style">Отправить</button>
                 </div>
             </form>
         </div>

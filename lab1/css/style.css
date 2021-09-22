@@ -39,7 +39,15 @@ header {
     margin-bottom: 15px;
 }
 
+.input_style {
+    background-color: white;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: black;
+}
+
 #float_left {
+    min-height: 330px;
     background-color: white;
     border-radius: 20px;
     width: 48.7%;
@@ -47,6 +55,7 @@ header {
 }
 
 #float_right {
+    min-height: 330px;
     text-align: right;
     background-color: white;
     border-radius: 20px;
