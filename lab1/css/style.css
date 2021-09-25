@@ -3,9 +3,20 @@
 }
 
 .uni_logo {
+    float: left;
     width: 360px;
     height: 40px;
 }
+
+#author {
+    float: right;
+    /*font-style: italic;*/
+    font-weight: bold;
+    color: white;
+    font-size: 26px;
+    margin-top: 7px;
+}
+
 
 #pre_back {
     padding-top: 50px;
@@ -50,7 +61,7 @@ header {
     min-height: 330px;
     background-color: white;
     border-radius: 20px;
-    width: 48.7%;
+    width: 48.8%;
     float: left;
 }
 
@@ -60,7 +71,7 @@ header {
     background-color: white;
     border-radius: 20px;
     overflow: hidden;
-    width: 48.7%;
+    width: 48.8%;
     float: right;
 }
 
@@ -74,8 +85,9 @@ header {
     color: rgb(212, 87, 75);
 }
 
-h3 {
-    font-family: "ALSSchlangesans-Bold", serif;
+h2 {
+    font-family: "ALSSchlangesans", serif;
+    font-weight: bold;
     text-align: center;
 }
 
