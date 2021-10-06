@@ -70,7 +70,7 @@ function ok() {
                 newRow += '<td>' + elem.curtime + '</td>';
                 newRow += '<td>' + elem.exectime + '</td>';
                 newRow += '<td>' + elem.hitres + '</td>';
-                $('#resultTable').append(newRow);
+                $('#result_table').append(newRow);
                 localStorage.setItem("arr", localStorage.getItem("arr") + newRow);
             });
         })
@@ -86,7 +86,7 @@ function start() {
     if (localStorage.getItem("arr") == null) {
         localStorage.setItem("arr", "");
     } else {
-        $('#resultTable').append(localStorage.getItem("arr"))
+        $('#result_table').append(localStorage.getItem("arr"))
     }
 }
 

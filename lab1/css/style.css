@@ -2,15 +2,19 @@
     clear: both;
 }
 
-.uni_logo {
+.menu {
+    max-width: 960px;
+    margin: auto;
+}
+
+#logo {
     float: left;
     width: 360px;
     height: 40px;
 }
 
 #author {
-    float: right;
-    /*font-style: italic;*/
+    text-align: right;
     font-weight: bold;
     color: white;
     font-size: 26px;
@@ -18,8 +22,8 @@
 }
 
 
-#pre_back {
-    padding-top: 50px;
+#background {
+    padding-top: 60px;
     width: 100%;
 }
 
@@ -31,24 +35,28 @@ body {
 header {
     background-color: rgb(93,118,120);
     width: 100%;
-    margin-bottom: 10px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     position: fixed;
 }
 
 .container {
-    width: 100%;
-    max-width: 960px;
-    margin: auto;
     padding: 10px;
     box-sizing: border-box;
 }
 
 #main {
+    max-width: 960px;
     background-color: rgb(191,218,217);
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin: auto auto 15px;
 }
+
+.bordered {
+    border-radius: 20px;
+}
+
+
+
 
 .input_style {
     background-color: white;
@@ -60,52 +68,29 @@ header {
 #float_left {
     min-height: 330px;
     background-color: white;
-    border-radius: 20px;
     width: 48.8%;
     float: left;
 }
 
 #float_right {
     min-height: 330px;
-    text-align: right;
     background-color: white;
-    border-radius: 20px;
     overflow: hidden;
     width: 48.8%;
     float: right;
 }
 
 #improved {
-    margin-top: 20px;
     background-color: white;
-    border-radius: 20px;
 }
 
 .error {
     color: rgb(212, 87, 75);
 }
 
-h2 {
-    font-family: "ALSSchlangesans", serif;
-    font-weight: bold;
+.heading {
     text-align: center;
 }
-
-div {
-    /*border: 1px solid black;*/
-}
-
-/* жирный шрифт итмо */
-@font-face {
-    font-family: 'font5913db4e49c28ce082b1f53d4c159e11';
-
-    src:    url('https://nomail.com.ua/files/eot/5913db4e49c28ce082b1f53d4c159e11.eot?#iefix') format('embedded-opentype'),
-    url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff'),
-    url('https://nomail.com.ua/files/woff2/5913db4e49c28ce082b1f53d4c159e11.woff2') format('woff2');
-}
-@font-face { font-family: 'ALSSchlangesans-Bold';  src: local('ALSSchlangesans-Bold'), url('https://nomail.com.ua/files/woff/5913db4e49c28ce082b1f53d4c159e11.woff') format('woff'); }
-
-
 
 /* шрифт итмо */
 @font-face {

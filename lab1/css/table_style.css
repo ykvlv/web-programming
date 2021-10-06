@@ -1,31 +1,23 @@
-/* тело таблицы */
-tfoot, tbody {
-    text-align: center;
-}
-
-/* эпилепсия */
-tbody tr:nth-child(odd) {
+#result_table tr:nth-child(odd) {
     background-color: rgb(191,218,217);
 }
 
-tbody tr:first-child {
+#result_table tr:first-child {
     background-color: rgb(93,118,120);
-}
-
-tbody tr:nth-child(even) {
-    background-color: white;
-}
-
-.table_header {
     color: white;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
-table {
+#result_table tr:nth-child(even) {
+    background-color: white;
+}
+
+#result_table {
+    text-align: center;
+    border-radius: 13px;
     width: 100%;
     color: black;
-    border-radius: 15px;
     overflow: hidden;
     border-collapse: collapse;
 }

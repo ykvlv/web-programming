@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/table_style.css">
@@ -8,21 +9,19 @@
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="uni_logo">
-            <img class="uni_logo" src="img/logo.png" alt="Логотип">
-        </div>
+    <div class="container menu">
+        <img id="logo" src="img/logo.png" alt="Логотип">
         <div id="author">
             ЯКОВЛЕВ ГРИГОРИЙ P3213
         </div>
         <div class="clear"></div>
     </div>
 </header>
-<img id="pre_back" src="img/back.png" alt="Зима">
-<div class="container" id="main">
-    <h2>Лабораторная 1. Чекер попадания. Вариант 13214</h2>
+<img id="background" src="img/back.png" alt="Зима">
+<div class="container bordered" id="main">
+    <h2 class="heading" >Лабораторная 1. Чекер попадания. Вариант 13214</h2>
     <div class="container">
-        <div id="float_left" class="container">
+        <div id="float_left" class="container bordered">
             <div class="container">
                 <label for="ch_X0">Выберите X:</label><br>
                 <input type="radio" id="ch_X-4" name="X" value="-4">
@@ -67,13 +66,15 @@
                 <button type="button" class="input_style" onclick="clearTable()">Очистить</button>
             </div>
         </div>
-        <div id="float_right">
+        <div id="float_right" class="container bordered">
             <img src="img/area.png" alt="Границы">
         </div>
         <div class="clear"></div>
-        <div class="container" id="improved">
-            <table id="resultTable">
-                <tr class="table_header">
+    </div>
+    <div class="container">
+        <div class="container bordered" id="improved">
+            <table id="result_table">
+                <tr>
                     <th>X</th>
                     <th>Y</th>
                     <th>R</th>
@@ -82,11 +83,12 @@
                     <th>Hit result</th>
                 </tr>
             </table>
-            <br>
         </div>
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
 <script src="scripts/main.js"></script>
 </html>
