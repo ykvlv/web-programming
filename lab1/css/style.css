@@ -60,6 +60,10 @@ header {
     border-radius: 20px;
 }
 
+#main .container .container {
+    background-color: white;
+}
+
 .input_style {
     background-color: white;
     border-radius: 5px;
@@ -70,7 +74,6 @@ header {
 .double_element {
     overflow: hidden;
     min-height: 350px;
-    background-color: white;
     width: 48.8%;
 }
 
