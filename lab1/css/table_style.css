@@ -21,3 +21,8 @@
     overflow: hidden;
     border-collapse: collapse;
 }
+
+#result_table tr[class=added_rows]:hover {
+    background-color: rgb(212,87,75);
+    color: white;
+}

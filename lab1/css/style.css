@@ -2,25 +2,30 @@
     clear: both;
 }
 
+.float_left {
+    float: left;
+}
+
+.float_right {
+    float: right;
+}
+
 .menu {
     max-width: 960px;
     margin: auto;
 }
 
 #logo {
-    float: left;
     width: 360px;
     height: 40px;
 }
 
 #author {
-    text-align: right;
     font-weight: bold;
     color: white;
     font-size: 26px;
     margin-top: 7px;
 }
-
 
 #background {
     padding-top: 60px;
@@ -55,9 +60,6 @@ header {
     border-radius: 20px;
 }
 
-
-
-
 .input_style {
     background-color: white;
     border-radius: 5px;
@@ -65,31 +67,15 @@ header {
     border-color: black;
 }
 
-#float_left {
-    min-height: 330px;
-    background-color: white;
-    width: 48.8%;
-    float: left;
-}
-
-#float_right {
-    min-height: 330px;
-    background-color: white;
+.double_element {
     overflow: hidden;
-    width: 48.8%;
-    float: right;
-}
-
-#improved {
+    min-height: 350px;
     background-color: white;
+    width: 48.8%;
 }
 
 .error {
     color: rgb(212, 87, 75);
-}
-
-.heading {
-    text-align: center;
 }
 
 /* шрифт итмо */

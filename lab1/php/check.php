@@ -1,66 +1,67 @@
 <?php
 
-require_once("encoder.php");
-
-function validateX($xVal) {
-    return isset($xVal);
+function validateX($x) {
+    $possible_values = array(-4, -3, -2, -1, 0, 1, 2, 3, 4);
+    return isset($x) && in_array($x, $possible_values);
 }
 
-function validateR($rVal) {
-    return isset($rVal);
+function validateR($r) {
+    $possible_values = array(1, 1.5, 2, 2.5, 3);
+    return isset($r) && in_array($r, $possible_values);
 }
 
-function validateY($yVal) {
+function validateY($y) {
+    $Y_MAX_LENGTH = 15;
     $Y_MIN = -3;
     $Y_MAX = 5;
-    if (!isset($yVal)) {
-        return false;
+
+    return isset($y) && is_numeric($y) && strlen($y) < $Y_MAX_LENGTH && $y >= $Y_MIN && $y <= $Y_MAX;
+}
+
+function validate($x, $y, $r) {
+    return validateX($x) && validateY($y) && validateR($r);
+}
+
+function validateTimezone($timezoneOffset) {
+    return isset($timezoneOffset) && is_numeric($timezoneOffset) && $timezoneOffset % 60 === 0;
+}
+
+function checkCircle($x, $y, $r) {
+    return $x <= 0 && $y >= 0 && sqrt($x * $x + $y * $y) <= $r / 2;
+}
+
+function checkRectangle($x, $y, $r) {
+    return $x >= 0 && $x <= $r / 2 && $y <= 0 && $y >= -$r;
+}
+
+function checkTriangle($x, $y, $r) {
+    return $x >= 0 && $y >= 0 && $y + $x <= $r ;
+}
+
+function checkHit($x, $y, $r) {
+    return checkCircle($x, $y, $r) || checkRectangle($x, $y, $r) || checkTriangle($x, $y, $r);
+}
+
+function check() {
+    $x = $_GET['x'];
+    $y = $_GET['y'];
+    $r = $_GET['r'];
+    $timezoneOffset = $_GET['tz'];
+    date_default_timezone_set(timezone_name_from_abbr("UTC"));
+
+    if (validate($x, $y, $r) && validateTimezone($timezoneOffset)) {
+        $isHit = checkHit($x, $y, $r);
+        $currentTime = date('H:i:s', time() - $timezoneOffset * 60);
+        $executionTime = round(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 7);
+        return "<validate>" . "true" . "</validate>\n" .
+            "<x>" . $x . "</x>\n" .
+            "<y>" . $y . "</y>\n" .
+            "<r>" . $r . "</r>\n" .
+            "<currentTime>" . $currentTime  . "</currentTime>\n" .
+            "<executionTime>" . $executionTime . "</executionTime>\n" .
+            "<hitRes>" . ($isHit ? "yes" : "no") . "</hitRes>\n";
     }
-
-    $numY = str_replace(',', '.', $yVal);
-    return is_numeric($numY) && $numY >= $Y_MIN && $numY <= $Y_MAX;
+    return "<validate>" . "false" . "</validate>";
 }
 
-function validate($xVal, $yVal, $rVal) {
-    return validateX($xVal) && validateY($yVal) && validateR($rVal);
-}
-
-function checkCircle($xVal, $yVal, $rVal) {
-    return $xVal <= 0 && $yVal >= 0 && sqrt($xVal * $xVal + $yVal * $yVal) <= $rVal / 2;
-}
-
-function checkRectangle($xVal, $yVal, $rVal) {
-    return $xVal >= 0 && $xVal <= $rVal / 2 && $yVal <= 0 && $yVal >= -$rVal;
-}
-
-function checkTriangle($xVal, $yVal, $rVal) {
-    return $xVal >= 0 && $yVal >= 0 && $yVal + $xVal <= $rVal ;
-}
-
-function checkHit($xVal, $yVal, $rVal) {
-    return checkCircle($xVal, $yVal, $rVal) || checkRectangle($xVal, $yVal, $rVal) || checkTriangle($xVal, $yVal, $rVal);
-}
-
-$xVal = $_GET['x'];
-$yVal = $_GET['y'];
-$rVal = $_GET['r'];
-$timezoneOffset = $_GET['timezone'];
-$results = array();
-
-$isValid = validate($xVal, $yVal, $rVal);
-$converted_isValid = $isValid ? 'true' : 'false';
-$isHit = $isValid ? checkHit($xVal, $yVal, $rVal) : 'Sorry, Bro, try it again later!';
-$converted_isHit = $isHit ? 'yes' : 'no';
-$currentTime = date('H:i:s', time() - $timezoneOffset * 60);
-$executionTime = round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 7);
-array_push($results, array(
-    "validate" => $isValid,
-    "xVal" => $xVal,
-    "yVal" => $yVal,
-    "rVal" => $rVal,
-    "curtime" => $currentTime,
-    "exectime" => $executionTime,
-    "hitres" => $converted_isHit
-));
-
-echo toJSON($results);
+echo check();
