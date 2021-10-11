@@ -14,7 +14,6 @@ function validateY($y) {
     $Y_MAX_LENGTH = 15;
     $Y_MIN = -3;
     $Y_MAX = 5;
-
     return isset($y) && is_numeric($y) && strlen($y) < $Y_MAX_LENGTH && $y >= $Y_MIN && $y <= $Y_MAX;
 }
 
@@ -48,20 +47,32 @@ function check() {
     $r = $_GET['r'];
     $timezoneOffset = $_GET['tz'];
     date_default_timezone_set(timezone_name_from_abbr("UTC"));
+    $doc = new DOMDocument();
+    $elements = [];
 
     if (validate($x, $y, $r) && validateTimezone($timezoneOffset)) {
         $isHit = checkHit($x, $y, $r);
         $currentTime = date('H:i:s', time() - $timezoneOffset * 60);
         $executionTime = round(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 7);
-        return "<validate>" . "true" . "</validate>\n" .
-            "<x>" . $x . "</x>\n" .
-            "<y>" . $y . "</y>\n" .
-            "<r>" . $r . "</r>\n" .
-            "<currentTime>" . $currentTime  . "</currentTime>\n" .
-            "<executionTime>" . $executionTime . "</executionTime>\n" .
-            "<hitRes>" . ($isHit ? "yes" : "no") . "</hitRes>\n";
+        $elements += [
+            new DOMElement("validate", true),
+            new DOMElement("x", $x),
+            new DOMElement("y", $y),
+            new DOMElement("r", $r),
+            new DOMElement("currentTime", $currentTime),
+            new DOMElement("executionTime", $executionTime),
+            new DOMElement("hitRes", $isHit ? "yes" : "no")
+        ];
+    } else {
+        $elements += [
+            new DOMElement("validate", false)
+        ];
     }
-    return "<validate>" . "false" . "</validate>";
+
+    foreach($elements as $element) {
+        $doc->appendChild($element);
+    }
+    return $doc->saveHTML();
 }
 
 echo check();
