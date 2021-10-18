@@ -23,25 +23,16 @@
   <div class="container">
     <div class="container bordered double_element float_left">
       <div class="container">
-        <label for="ch_X0">Выберите X:</label><br>
-        <input type="radio" id="ch_X-4" name="X" value="-4">
-        <label for="ch_X-4">-4</label>
-        <input type="radio" id="ch_X-3" name="X" value="-3">
-        <label for="ch_X-3">-3</label>
-        <input type="radio" id="ch_X-2" name="X" value="-2">
-        <label for="ch_X-2">-2</label>
-        <input type="radio" id="ch_X-1" name="X" value="-1">
-        <label for="ch_X-1">-1</label>
-        <input type="radio" id="ch_X0" name="X" value="0">
-        <label for="ch_X0">0</label>
-        <input type="radio" id="ch_X1" name="X" value="1">
-        <label for="ch_X1">1</label>
-        <input type="radio" id="ch_X2" name="X" value="2">
-        <label for="ch_X2">2</label>
-        <input type="radio" id="ch_X3" name="X" value="3">
-        <label for="ch_X3">3</label>
-        <input type="radio" id="ch_X4" name="X" value="4">
-        <label for="ch_X4">4</label><br>
+        <label for="valueX">Выберите X:</label><br>
+        <label><input type="radio" name="X" value="-4">-4</label>
+        <label><input type="radio" name="X" value="-3">-3</label>
+        <label><input type="radio" name="X" value="-2">-2</label>
+        <label><input type="radio" name="X" value="-1">-1</label>
+        <label><input type="radio" name="X" value="0" id="valueX">0</label>
+        <label><input type="radio" name="X" value="1">1</label>
+        <label><input type="radio" name="X" value="2">2</label>
+        <label><input type="radio" name="X" value="3">3</label>
+        <label><input type="radio" name="X" value="4">4</label><br>
         <span class="error" id="error_ch_X"></span>
       </div>
       <div class="container">
@@ -62,7 +53,7 @@
         <span class="error" id="error_sl_R"></span>
       </div>
       <div class="container">
-        <button type="button" class="input_style" onclick="check()" formmethod="get" formaction="index.html">Отправить</button>
+        <button type="button" class="input_style" onclick="checkAndSend()">Отправить</button>
         <button type="button" class="input_style" onclick="clearTable()">Очистить</button>
       </div>
     </div>

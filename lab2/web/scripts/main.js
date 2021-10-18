@@ -52,14 +52,15 @@ function validateForm() {
     return validateX() & validateY() & validateR();
 }
 
-function check() {
+function checkAndSend() {
     if (validateForm()) {
-        $.get("php/check.php", {
+        $.get("request", {
             'x': x,
             'y': y,
             'r': r,
             'tz': new Date().getTimezoneOffset()
         }).done(function (data) {
+            console.log(data);
             let el = new DOMParser().parseFromString(data, "text/html");
             if (!el.getElementsByTagName("validate").item(0).textContent) alert("Невалидные значения");
 
