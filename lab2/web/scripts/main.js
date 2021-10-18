@@ -52,9 +52,9 @@ function validateForm() {
     return validateX() & validateY() & validateR();
 }
 
-function checkAndSend() {
+function addPoint() {
     if (validateForm()) {
-        $.get("request", {
+        $.get("request/addPoint", {
             'x': x,
             'y': y,
             'r': r,

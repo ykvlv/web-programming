@@ -53,7 +53,7 @@
         <span class="error" id="error_sl_R"></span>
       </div>
       <div class="container">
-        <button type="button" class="input_style" onclick="checkAndSend()">Отправить</button>
+        <button type="button" class="input_style" onclick="addPoint()">Отправить</button>
         <button type="button" class="input_style" onclick="clearTable()">Очистить</button>
       </div>
     </div>
