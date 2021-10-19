@@ -65,6 +65,7 @@ header {
 }
 
 .input_style {
+    min-width: 30px;
     background-color: white;
     border-radius: 5px;
     border-width: 1px;

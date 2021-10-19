@@ -1,6 +1,6 @@
 const in_Y = document.querySelector("input[id=in_Y]");
 const sl_R = document.querySelector("select[id=sl_R]");
-const ch_X = document.querySelectorAll("input[name=X]");
+const ch_X = document.querySelectorAll("input[name=x]");
 const Y_MAX_LENGTH = 15, Y_MIN = -3, Y_MAX = 5;
 let x, y, r;
 
@@ -49,45 +49,5 @@ function validateR() {
 }
 
 function validateForm() {
-    return validateX() & validateY() & validateR();
+    return Boolean(validateX() & validateY() & validateR());
 }
-
-function addPoint() {
-    if (validateForm()) {
-        $.get("request/addPoint", {
-            'x': x,
-            'y': y,
-            'r': r,
-            'tz': new Date().getTimezoneOffset()
-        }).done(function (data) {
-            console.log(data);
-            let el = new DOMParser().parseFromString(data, "text/html");
-            if (!el.getElementsByTagName("validate").item(0).textContent) alert("Невалидные значения");
-
-            let new_row = '<tr class="added_rows">';
-            new_row += '<td>' + el.getElementsByTagName("x").item(0).textContent + '</td>';
-            new_row += '<td>' + el.getElementsByTagName("y").item(0).textContent + '</td>';
-            new_row += '<td>' + el.getElementsByTagName("r").item(0).textContent + '</td>';
-            new_row += '<td>' + el.getElementsByTagName("currentTime").item(0).textContent + '</td>';
-            new_row += '<td>' + el.getElementsByTagName("executionTime").item(0).textContent + '</td>';
-            new_row += '<td>' + el.getElementsByTagName("hitRes").item(0).textContent + '</td>';
-            $('#result_table').append(new_row);
-            localStorage.setItem("result_table", localStorage.getItem("result_table") + new_row);
-        })
-    }
-}
-
-function clearTable() {
-    $(".added_rows").remove();
-    localStorage.setItem("result_table", "");
-}
-
-function start() {
-    if (localStorage.getItem("result_table") == null) {
-        localStorage.setItem("result_table", "");
-    } else {
-        $('#result_table').append(localStorage.getItem("result_table"))
-    }
-}
-
-start();
