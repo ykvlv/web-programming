@@ -3,7 +3,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"table/*"})
 public class TableControllerServlet extends HttpServlet {
@@ -13,14 +17,16 @@ public class TableControllerServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String absolutePath = req.getRequestURI()
                 .replaceFirst(req.getContextPath(), "")
                 .replaceFirst("/table", "");
+
+        PrintWriter writer = resp.getWriter();
         try {
             switch (absolutePath) {
                 case "/addHit":
-                    addPointRequest(req, resp);
+                    addHitRequest(req, resp);
                     break;
                 case "/clearTable":
                     clearTableRequest(req, resp);
@@ -28,19 +34,18 @@ public class TableControllerServlet extends HttpServlet {
                 default:
                     homeRedirect(req, resp);
             }
+        } catch (NumberFormatException | NullPointerException e) {
+            writer.println(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n")));
         } catch (ServletException | IOException e) {
-            try {
-                PrintWriter writer = resp.getWriter();
-                writer.println("Я не могу это обработать");
-            } catch (IOException ee) {
-                log("Я умер");
-            }
+            writer.println("big ex");
         }
     }
 
-    private void addPointRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setAttribute("time", LocalTime.now());
-
+    private void addHitRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, NumberFormatException, NullPointerException {
+        req.setAttribute("time", LocalTime.now().toString());
+        req.setAttribute("x", req.getParameter("x"));
+        req.setAttribute("y", req.getParameter("y"));
+        req.setAttribute("r", req.getParameter("r"));
 
         AreaCheckServlet areaCheckServlet = new AreaCheckServlet();
         areaCheckServlet.init();

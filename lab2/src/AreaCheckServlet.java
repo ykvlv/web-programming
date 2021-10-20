@@ -12,10 +12,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.security.InvalidParameterException;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AreaCheckServlet extends HttpServlet {
     private static final int[] allowedR = {1, 2, 3, 4, 5};
@@ -26,36 +29,40 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Map<String, String> responseParams = new HashMap<>();
         PrintWriter writer = resp.getWriter();
 
-        LocalTime time; double x, y; int r;
         try {
-            time = (LocalTime) req.getAttribute("time");
-            x = Double.parseDouble(req.getParameter("x"));
-            y = Double.parseDouble(req.getParameter("y"));
-            r = Integer.parseInt(req.getParameter("r"));
-        } catch (NumberFormatException | ClassCastException | NullPointerException e) {
-            writeTagsInHTML(writer, Collections.singletonMap("valid", "false"));
-            return;
-        }
+            LocalTime time = LocalTime.parse((String) req.getAttribute("time"));
+            double x = Double.parseDouble((String) req.getAttribute("x"));
+            double y = Double.parseDouble((String) req.getAttribute("y"));
+            int r = Integer.parseInt((String) req.getAttribute("r"));
 
-        if(validate(x, y, r)) {
-            boolean hit = checkHit(x, y, r);
-            writeTagsInHTML(writer, new HashMap<String, String>() {{
-                put("valid", "true");
-                put("x", String.valueOf(x));
-                put("y", String.valueOf(y));
-                put("r", String.valueOf(r));
-                put("currentTime", time.format(DateTimeFormatter.ofPattern("HH:mm:ss:SSSSSSSSS")));
-                put("executionTime", LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSSSSSSSS")));
-                put("hit", String.valueOf(hit));
-            }});
-        } else {
-            writeTagsInHTML(writer, Collections.singletonMap("valid", "false"));
+            if (validate(x, y, r)) {
+
+                responseParams = new HashMap<String, String>() {{
+                    put("valid", "true");
+                    put("x", String.valueOf(x));
+                    put("y", String.valueOf(y));
+                    put("r", String.valueOf(r));
+                    put("currentTime", time.format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS")));
+                    put("executionTime", String.valueOf(Duration.between(time, LocalTime.now()).getNano()/1000000000D));
+                    put("hit", String.valueOf(checkHit(x, y, r)));
+                }};
+            } else {
+                throw new IllegalArgumentException("invalid");
+            }
+        } catch (ClassCastException | NullPointerException | NumberFormatException e) {
+            responseParams = Collections.singletonMap("validate", "false");
+        } finally {
+            writer.println(htmlWithTagsAndTextContent(responseParams));
         }
     }
 
-    private void writeTagsInHTML(PrintWriter writer, Map<String, String> tagAndTextContent) {
+    private String htmlWithTagsAndTextContent(Map<String, String> tagAndTextContent) {
+        StringWriter writer = new StringWriter();
+        StreamResult streamResult = new StreamResult(writer);
+
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.newDocument();
@@ -72,8 +79,11 @@ public class AreaCheckServlet extends HttpServlet {
             tf.setOutputProperty(OutputKeys.METHOD, "html");
             tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             tf.setOutputProperty(OutputKeys.INDENT, "yes");
-            tf.transform(new DOMSource(doc), new StreamResult(writer));
-        } catch (ParserConfigurationException | TransformerException ignored) { }
+            tf.transform(new DOMSource(doc), streamResult);
+            return writer.toString();
+        } catch (ParserConfigurationException | TransformerException e) {
+            return "<error>transform</error>";
+        }
     }
 
     private boolean checkHit(double x, double y, int r) {

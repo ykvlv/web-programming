@@ -9,6 +9,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>
@@ -19,8 +20,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="JBoss/WildFly 25.0.0.Final" level="application_server_libraries" />
-    <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="JBoss 25.0.0.Final" level="application_server_libraries" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
   </component>
 </module>
