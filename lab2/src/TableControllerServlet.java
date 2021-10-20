@@ -1,10 +1,12 @@
+import table.Hit;
+import table.Table;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Clock;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -43,14 +45,25 @@ public class TableControllerServlet extends HttpServlet {
 
     private void addHitRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, NumberFormatException, NullPointerException {
         req.setAttribute("time", LocalTime.now().toString());
-        req.setAttribute("x", req.getParameter("x"));
+// параметры
+        req.setAttribute("x", "2");
         req.setAttribute("y", req.getParameter("y"));
-        req.setAttribute("r", req.getParameter("r"));
+        req.setAttribute("r", "3");
 
         AreaCheckServlet areaCheckServlet = new AreaCheckServlet();
         areaCheckServlet.init();
         areaCheckServlet.service(req, resp);
         areaCheckServlet.destroy();
+
+        ServletContext context = getServletContext();
+        Table table = (Table) context.getAttribute("table");
+        Hit hit = (Hit) req.getAttribute("hit");
+        table.addHit(hit);
+        context.setAttribute("table", table);
+
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        homeRedirect(req, resp);
     }
 
     private void homeRedirect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -61,4 +74,6 @@ public class TableControllerServlet extends HttpServlet {
     private void clearTableRequest(HttpServletRequest req, HttpServletResponse resp) {
 
     }
+
+
 }

@@ -72,15 +72,3 @@ function validateR() {
 function validateForm() {
     return Boolean(validateX() & validateY() & validateR());
 }
-
-function addHit() {
-    if (validateForm()) {
-        $.post("table/addHit", {
-            "x": x,
-            "y": y,
-            "r": r
-        }).done(function (data) {
-            console.log(data);
-        })
-    }
-}

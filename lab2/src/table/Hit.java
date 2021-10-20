@@ -1,3 +1,5 @@
+package table;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 
@@ -8,18 +10,18 @@ public class Hit implements Serializable {
     private int r;
     private LocalTime currentTime;
     private Double executionTime;
-    private boolean hitResult;
+    private boolean hit;
 
     public Hit() { }
 
-    public Hit(boolean valid, double x, double y, int r, LocalTime currentTime, Double executionTime, boolean hitResult) {
+    public Hit(boolean valid, double x, double y, int r, LocalTime currentTime, Double executionTime, boolean hit) {
         this.valid = valid;
         this.x = x;
         this.y = y;
         this.r = r;
         this.currentTime = currentTime;
         this.executionTime = executionTime;
-        this.hitResult = hitResult;
+        this.hit = hit;
     }
 
     public Hit(boolean valid) {
@@ -74,11 +76,11 @@ public class Hit implements Serializable {
         this.executionTime = executionTime;
     }
 
-    public boolean isHitResult() {
-        return hitResult;
+    public boolean isHit() {
+        return hit;
     }
 
-    public void setHitResult(boolean hitResult) {
-        this.hitResult = hitResult;
+    public void setHit(boolean hit) {
+        this.hit = hit;
     }
 }
