@@ -8,8 +8,6 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"table/*"})
 public class TableControllerServlet extends HttpServlet {
@@ -36,19 +34,16 @@ public class TableControllerServlet extends HttpServlet {
                 default:
                     homeRedirect(req, resp);
             }
-        } catch (NumberFormatException | NullPointerException e) {
-            writer.println(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n")));
         } catch (ServletException | IOException e) {
-            writer.println("big ex");
+            writer.println("вы мне не нравитесь — сегодня вы без ответа.");
         }
     }
 
-    private void addHitRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, NumberFormatException, NullPointerException {
+    private void addHitRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setAttribute("time", LocalTime.now().toString());
-// параметры
-        req.setAttribute("x", "2");
+        req.setAttribute("x", req.getParameter("x"));
         req.setAttribute("y", req.getParameter("y"));
-        req.setAttribute("r", "3");
+        req.setAttribute("r", req.getParameter("r"));
 
         AreaCheckServlet areaCheckServlet = new AreaCheckServlet();
         areaCheckServlet.init();
@@ -60,19 +55,24 @@ public class TableControllerServlet extends HttpServlet {
         Hit hit = (Hit) req.getAttribute("hit");
         table.addHit(hit);
         context.setAttribute("table", table);
+        context.setAttribute("hit", hit);
 
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding("UTF-8");
+        homeRedirect(req, resp);
+    }
+
+    private void clearTableRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext context = getServletContext();
+        Table table = (Table) context.getAttribute("table");
+        table.clearHits();
+        context.setAttribute("table", table);
+
         homeRedirect(req, resp);
     }
 
     private void homeRedirect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
         resp.sendRedirect(req.getContextPath());
-    }
-
-    // not added
-    private void clearTableRequest(HttpServletRequest req, HttpServletResponse resp) {
-
     }
 
 

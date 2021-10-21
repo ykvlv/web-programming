@@ -23,20 +23,24 @@ public class AreaCheckServlet extends HttpServlet {
             int r = Integer.parseInt((String) req.getAttribute("r"));
 
             if (validate(x, y, r)) {
-                req.setAttribute("hit", new Hit(true,
+                setHitAttribute(req, new Hit(true,
                         x, y, r, time,
                         Duration.between(time, LocalTime.now()).getNano()/1000000000D,
                         checkHit(x, y, r)));
             } else {
-                throw new IllegalArgumentException("invalid");
+                throw new IllegalArgumentException("invalid (x, y, r)");
             }
         } catch (ClassCastException | NullPointerException | NumberFormatException e) {
-            req.setAttribute("hit", new Hit(false));
+            setHitAttribute(req, new Hit(false));
         }
     }
 
+    private void setHitAttribute(HttpServletRequest req, Hit hit) {
+        req.setAttribute("hit", hit);
+    }
+
     private boolean checkHit(double x, double y, int r) {
-        return checkCircle(x, y, r) && checkRectangle(x, y, r) && checkTriangle(x, y, r);
+        return checkCircle(x, y, r) || checkRectangle(x, y, r) || checkTriangle(x, y, r);
     }
 
     private boolean checkCircle(double x, double y, double r) {
@@ -45,11 +49,11 @@ public class AreaCheckServlet extends HttpServlet {
 
     private boolean checkTriangle(double x, double y, int r) {
 //переделать...
-        return x <= 0 && y >= 0;
+        return x >= 0 && y <= 0;
     }
 
     private boolean checkRectangle(double x, double y, int r) {
-        return x <= 0 && y >= 0 && x >= r && y <= r;
+        return x <= 0 && y >= 0 && x >= -r && y <= r;
     }
 
     private boolean validate(double x, double y, int r) {
