@@ -23,7 +23,7 @@
 </header>
 <img id="background" src="img/back.png" alt="Зима">
 <div class="container bordered" id="main">
-  <h2 style="text-align: center" >Лабораторная 1. Чекер попадания. Вариант 13214</h2>
+  <h2 class="centered" >Лабораторная 1. Чекер попадания. Вариант 13214</h2>
   <div class="container">
     <div class="container bordered double_element float_left">
       <div class="container">
@@ -46,11 +46,11 @@
         <span class="error" id="error_R"></span>
       </div>
       <div class="container">
-        <button type="button" class="input_style" onclick="addHit()">Отправить</button>
+        <button type="button" class="input_style" onclick="addHit(xForm, yForm, rForm)">Отправить</button>
         <button type="button" class="input_style" onclick="clearTable()">Очистить</button>
       </div>
     </div>
-    <div class="container bordered double_element float_right">
+    <div class="container bordered double_element float_right centered">
       <canvas id="canvas"></canvas>
     </div>
     <div class="clear"></div>
@@ -89,5 +89,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="scripts/canvas.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 </html>
