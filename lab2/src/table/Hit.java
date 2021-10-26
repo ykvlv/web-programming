@@ -10,18 +10,18 @@ public class Hit implements Serializable {
     private int r;
     private LocalTime currentTime;
     private Double executionTime;
-    private boolean hit;
+    private boolean result;
 
     public Hit() { }
 
-    public Hit(boolean valid, double x, double y, int r, LocalTime currentTime, Double executionTime, boolean hit) {
+    public Hit(boolean valid, double x, double y, int r, LocalTime currentTime, Double executionTime, boolean result) {
         this.valid = valid;
         this.x = x;
         this.y = y;
         this.r = r;
         this.currentTime = currentTime;
         this.executionTime = executionTime;
-        this.hit = hit;
+        this.result = result;
     }
 
     public Hit(boolean valid) {
@@ -76,11 +76,11 @@ public class Hit implements Serializable {
         this.executionTime = executionTime;
     }
 
-    public boolean isHit() {
-        return hit;
+    public boolean isResult() {
+        return result;
     }
 
-    public void setHit(boolean hit) {
-        this.hit = hit;
+    public void setResult(boolean result) {
+        this.result = result;
     }
 }

@@ -1,15 +1,7 @@
-<%@ page import="table.*" %>
-<%@ page import="java.util.stream.Collectors" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<%
-  Table table = (Table) request.getServletContext().getAttribute("table");
-  Hit hit = (Hit) request.getServletContext().getAttribute("hit");
-
-  if (table == null) {
-    table = new Table();
-    request.getServletContext().setAttribute("table", table);
-  } %>
+<jsp:useBean id="table" class="table.Table" scope="application"/>
 
 <html lang="ru">
 <head>
@@ -19,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="css/table_style.css" media="all">
   <title>Лабораторная 1</title>
 </head>
-<body onload="init()">
+<body>
 <header>
   <div class="container menu">
     <img id="logo" class="float_left" src="img/logo.png" alt="Логотип">
@@ -36,11 +28,9 @@
     <div class="container bordered double_element float_left">
       <div class="container">
         Выберите X:<br>
-
-        <% for (int x = -4; x < 5; x++) {
-          out.println(String.format("<input class=\"input_style\" type=\"button\" name=\"x\" value=\"%d\">", x));
-        } %><br>
-
+        <c:forEach items="${[-4, -3, -2, -1, 0, 1, 2, 3, 4]}" var="x">
+          <input class="input_style" type="button" name="x" value="${x}">
+        </c:forEach><br>
         <span class="error" id="error_X"></span>
       </div>
       <div class="container">
@@ -50,11 +40,9 @@
       </div>
       <div class="container">
         Выберите R:<br>
-
-        <% for (int r = 1; r < 6; r++) {
-          out.println(String.format("<input class=\"input_style\" type=\"button\" name=\"r\" value=\"%d\">", r));
-        } %><br>
-
+        <c:forEach items="${[1, 2, 3, 4, 5]}" var="r">
+          <input class="input_style" type="button" name="r" value="${r}">
+        </c:forEach><br>
         <span class="error" id="error_R"></span>
       </div>
       <div class="container">
@@ -76,18 +64,23 @@
           <th>R</th>
           <th>Current time</th>
           <th>Execution time</th>
-          <th>Hit</th>
+          <th>Result</th>
         </tr>
-
-        <%= table.getValidHits()
-                .stream()
-                .map(h -> String.format("<tr class=\"history\"><td>%f</td><td>%f</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>",
-                        h.getX(),
-                        h.getY(),
-                        h.getR(),
-                        h.getCurrentTime(),
-                        h.getExecutionTime(),
-                        h.isHit())).collect(Collectors.joining("")) %>
+        <c:forEach var="hit" items="${table.validHits}">
+          <tr class="validHit">
+            <td>${hit.x}</td>
+            <td>${hit.y}</td>
+            <td>${hit.r}</td>
+            <td>${hit.currentTime}</td>
+            <td>${hit.executionTime}</td>
+            <td>${hit.result}</td>
+          </tr>
+        </c:forEach>
+        <c:if test="${table.countInvalidHits > 0}">
+          <tr>
+            <td id="invalidHits" colspan="6">Невалидных запросов: ${table.countInvalidHits}</td>
+          </tr>
+        </c:if>
       </table>
     </div>
   </div>
