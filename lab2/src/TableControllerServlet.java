@@ -11,31 +11,28 @@ import java.time.LocalTime;
 
 @WebServlet(urlPatterns = {"table/*"})
 public class TableControllerServlet extends HttpServlet {
+    public static final String TABLE_ATTRIBUTE = "table";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         homeRedirect(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String absolutePath = req.getRequestURI()
                 .replaceFirst(req.getContextPath(), "")
-                .replaceFirst("/table", "");
+                .replaceFirst(req.getServletPath(), "");
 
-        PrintWriter writer = resp.getWriter();
-        try {
-            switch (absolutePath) {
-                case "/addHit":
-                    addHitRequest(req, resp);
-                    break;
-                case "/clearTable":
-                    clearTableRequest(req, resp);
-                    break;
-                default:
-                    homeRedirect(req, resp);
-            }
-        } catch (ServletException | IOException e) {
-            writer.println("вы мне не нравитесь — сегодня вы без ответа.");
+        switch (absolutePath) {
+            case "/addHit":
+                addHitRequest(req, resp);
+                break;
+            case "/clearTable":
+                clearTableRequest(req, resp);
+                break;
+            default:
+                homeRedirect(req, resp);
         }
     }
 
@@ -50,21 +47,18 @@ public class TableControllerServlet extends HttpServlet {
         areaCheckServlet.service(req, resp);
         areaCheckServlet.destroy();
 
-        ServletContext context = getServletContext();
-        Table table = (Table) context.getAttribute("table");
+        Table table = getTable();
         Hit hit = (Hit) req.getAttribute("hit");
         table.addHit(hit);
-        context.setAttribute("table", table);
-        context.setAttribute("hit", hit);
+        setTable(table);
 
         homeRedirect(req, resp);
     }
 
-    private void clearTableRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext context = getServletContext();
-        Table table = (Table) context.getAttribute("table");
+    private void clearTableRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Table table = getTable();
         table.clearHits();
-        context.setAttribute("table", table);
+        setTable(table);
 
         homeRedirect(req, resp);
     }
@@ -75,5 +69,13 @@ public class TableControllerServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath());
     }
 
+    private Table getTable() {
+        ServletContext context = getServletContext();
+        return (Table) context.getAttribute(TABLE_ATTRIBUTE);
+    }
 
+    private void setTable(Table table) {
+        ServletContext context = getServletContext();
+        context.setAttribute(TABLE_ATTRIBUTE, table);
+    }
 }
