@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="css/table_style.css" media="all">
   <title>Лабораторная 1</title>
 </head>
-<body>
+<body onload="init()">
 <header>
   <div class="container menu">
     <img id="logo" class="float_left" src="img/logo.png" alt="Логотип">
@@ -23,7 +23,7 @@
 </header>
 <img id="background" src="img/back.png" alt="Зима">
 <div class="container bordered" id="main">
-  <h2 class="centered" >Лабораторная 1. Чекер попадания. Вариант 13214</h2>
+  <h2 class="centered">Лабораторная 2. Чекер попадания. Вариант 241063</h2>
   <div class="container">
     <div class="container bordered double_element float_left">
       <div class="container">

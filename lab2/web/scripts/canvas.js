@@ -7,19 +7,20 @@ class Point {
 
 class CoordinatesCanvas {
 
-    constructor(id, unitSize, xMin, xMax, yMin, yMax) {
+    constructor(id, size, scale, xMin, xMax, yMin, yMax) {
         this.canvas = document.getElementById(id);
-        this.unitSize = unitSize;
+        this.unitSize = size / 8 * scale;
+        this.scale = scale;
         this.xMin = xMin;
         this.xMax = xMax;
         this.yMin = yMin;
         this.yMax = yMax;
-        this.unitsX = (xMax - xMin);
-        this.unitsY = (yMax - yMin);
+        this.unitsX = xMax - xMin;
+        this.unitsY = yMax - yMin;
         this.canvas.width = this.unitsX * this.unitSize;
         this.canvas.height = this.unitsY * this.unitSize;
-        this.canvas.style.width = this.canvas.width + 'px';
-        this.canvas.style.height = this.canvas.height + 'px';
+        this.canvas.style.width = this.canvas.width / this.scale + 'px';
+        this.canvas.style.height = this.canvas.height / this.scale + 'px';
         this.canvas.addEventListener('click', (event) => this.onClick(event));
         this.areaRadius = 0;
         this.ctx = this.canvas.getContext("2d");
@@ -32,15 +33,15 @@ class CoordinatesCanvas {
             const canvasX = event.clientX - rect.left;
             const canvasY = event.clientY - rect.top;
             let p = this.toUnits(canvasX, canvasY);
-            addHit(p.x.toFixed(8), p.y.toFixed(8), this.areaRadius);
+            addHitCanvas(p.x.toFixed(9), p.y.toFixed(9));
         }
     }
 
     setAreaRadius(areaRadius) {
         this.areaRadius = areaRadius;
+        this.render();
     }
 
-// аче каво
     render() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.renderArea();
@@ -48,11 +49,11 @@ class CoordinatesCanvas {
         this.renderHistory();
     }
 
-//how is it working
     renderGrid() {
-        let dash = 5;
-        let textSize = 12;
-        this.ctx.font = textSize + "px sans-serif";
+        let dash = 5 * this.scale;
+        let textSize = 12 * this.scale;
+        this.ctx.font = textSize + "px ALSSchlangesans";
+        this.ctx.lineWidth = this.scale;
         this.ctx.strokeStyle = 'rgb(0,0,0)';
         this.ctx.fillStyle = 'rgb(0,0,0)';
 
@@ -102,13 +103,12 @@ class CoordinatesCanvas {
             [this.areaRadius/2, 0],
             [0, -this.areaRadius]
         ];
-// вопросы к этому
         for (let i = 0; i < pts.length; i++) {
-            let p = this.fromUnits(pts[i][0], pts[i][1]);
+            let {x, y} = this.fromUnits(pts[i][0], pts[i][1]);
             if (i === 0) {
-                this.ctx.moveTo(p.x, p.y);
+                this.ctx.moveTo(x, y);
             } else {
-                this.ctx.lineTo(p.x, p.y);
+                this.ctx.lineTo(x, y);
             }
         }
         let c = this.fromUnits(0, 0);
@@ -130,7 +130,7 @@ class CoordinatesCanvas {
             if (this.areaRadius === r) {
                 this.ctx.beginPath();
                 this.ctx.fillStyle = result === 'true' ? 'rgb(40, 227, 38)' : 'rgb(236, 31, 43)';
-                this.ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                this.ctx.arc(x, y, 4 * this.scale, 0, 2 * Math.PI);
                 this.ctx.fill();
             }
         }
@@ -145,8 +145,8 @@ class CoordinatesCanvas {
 
     toUnits(x, y) {
         return new Point(
-            (x / this.unitSize) + this.xMin,
-            ((this.canvas.height - y) / this.unitSize) + this.yMin
+            (x / this.unitSize * this.scale) + this.xMin,
+            ((this.canvas.height - y * this.scale) / this.unitSize) + this.yMin
         );
     }
 }
