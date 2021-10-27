@@ -93,7 +93,7 @@ class CoordinatesCanvas {
 
     renderArea() {
         this.ctx.beginPath();
-        this.ctx.fillStyle = "rgb(212, 87, 75)";
+        this.ctx.fillStyle = "#329F5B";
         let pts = [
             [-this.areaRadius/2, 0],
             [-this.areaRadius, 0],
@@ -111,9 +111,9 @@ class CoordinatesCanvas {
                 this.ctx.lineTo(x, y);
             }
         }
-        let c = this.fromUnits(0, 0);
-        this.ctx.arc(c.x, c.y, this.areaRadius / 2 * this.unitSize, Math.PI / 2, Math.PI);
-        this.ctx.lineTo(c.x, c.y);
+        let {x, y} = this.fromUnits(0, 0);
+        this.ctx.arc(x, y, this.areaRadius / 2 * this.unitSize, Math.PI / 2, Math.PI);
+        this.ctx.lineTo(x, y);
         this.ctx.fill();
     }
 

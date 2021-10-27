@@ -7,8 +7,8 @@
 <head>
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
   <link rel="stylesheet" type="text/css" href="css/table_style.css" media="all">
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
   <title>Лабораторная 1</title>
 </head>
 <body onload="init()">
@@ -21,11 +21,23 @@
     <div class="clear"></div>
   </div>
 </header>
-<img id="background" src="img/back.png" alt="Зима">
+<img id="liana" src="img/liana.png" alt="Лиана">
+<img id="monkey" src="img/monkey.png" alt="Обезьяна">
 <div class="container bordered" id="main">
   <h2 class="centered">Лабораторная 2. Чекер попадания. Вариант 241063</h2>
   <div class="container">
-    <div class="container bordered double_element float_left">
+    <div class="container bordered centered element">
+      <canvas id="canvas"></canvas>
+      <div class="container">
+        Выберите R:<br>
+        <c:forEach items="${[1, 2, 3, 4, 5]}" var="r">
+          <input class="input_style" type="button" name="r" value="${r}">
+        </c:forEach><br>
+        <span class="error" id="error_R"></span>
+      </div>
+    </div>
+    <br>
+    <div class="container bordered centered element">
       <div class="container">
         Выберите X:<br>
         <c:forEach items="${[-4, -3, -2, -1, 0, 1, 2, 3, 4]}" var="x">
@@ -39,24 +51,13 @@
         <span class="error" id="error_Y"></span>
       </div>
       <div class="container">
-        Выберите R:<br>
-        <c:forEach items="${[1, 2, 3, 4, 5]}" var="r">
-          <input class="input_style" type="button" name="r" value="${r}">
-        </c:forEach><br>
-        <span class="error" id="error_R"></span>
-      </div>
-      <div class="container">
         <button type="button" class="input_style" onclick="addHit(xForm, yForm, rForm)">Отправить</button>
         <button type="button" class="input_style" onclick="clearTable()">Очистить</button>
       </div>
     </div>
-    <div class="container bordered double_element float_right centered">
-      <canvas id="canvas"></canvas>
-    </div>
-    <div class="clear"></div>
   </div>
   <div class="container">
-    <div class="container bordered">
+    <div class="container bordered element">
       <table id="result_table">
         <tr>
           <th>X</th>

@@ -8,24 +8,23 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class AreaCheckServlet extends HttpServlet {
+    public static final String TIME_ATTR = "time", X_ATTR = "x", Y_ATTR = "y", R_ATTR = "r";
     public static final String HIT_ATTRIBUTE = "hit";
     private static final Hit invalidHit = new Hit(false);
     private static final int[] allowedR = {1, 2, 3, 4, 5};
-    private static final int minX = -4;
-    private static final int maxX = 4;
     private static final int maxLengthY = 15;
-    private static final int minY = -5;
-    private static final int maxY = 3;
+    private static final int minY = -5, maxY = 3;
+    private static final int minX = -4, maxX = 4;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Hit hit = invalidHit;
 
         try {
-            LocalTime time = LocalTime.parse((String) req.getAttribute("time"));
-            double x = Double.parseDouble((String) req.getAttribute("x"));
-            double y = Double.parseDouble(((String) req.getAttribute("y")).replace(",", "."));
-            int r = Integer.parseInt((String) req.getAttribute("r"));
+            LocalTime time = LocalTime.parse((String) req.getAttribute(TIME_ATTR));
+            double x = Double.parseDouble((String) req.getAttribute(X_ATTR));
+            double y = Double.parseDouble(((String) req.getAttribute(Y_ATTR)).replace(",", "."));
+            int r = Integer.parseInt((String) req.getAttribute(R_ATTR));
 
             if (validate(x, y, r)) {
                 hit = new Hit(true,

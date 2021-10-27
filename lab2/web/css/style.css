@@ -12,6 +12,7 @@
 
 .menu {
     max-width: 960px;
+    min-height: 60px;
     margin: auto;
 }
 
@@ -27,9 +28,18 @@
     margin-top: 7px;
 }
 
-#background {
-    padding-top: 60px;
-    width: 100%;
+#monkey {
+    position: fixed;
+    top: 60px;
+    width: 240px;
+    height: 184px;
+}
+
+#liana {
+    position: fixed;
+    top: 60px;
+    width: 350px;
+    height: 291px;
 }
 
 body {
@@ -38,30 +48,32 @@ body {
 }
 
 header {
-    background-color: rgb(93,118,120);
+    background-color: #0D704E;
     width: 100%;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     position: fixed;
 }
 
 .container {
+    width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 
+.element {
+    background-color: white;
+}
+
 #main {
+    padding-top: 60px;
     max-width: 960px;
-    background-color: rgb(191,218,217);
+    background-color: #8FD5A6;
     border-radius: 20px;
     margin: auto auto 15px;
 }
 
 .bordered {
     border-radius: 20px;
-}
-
-#main .container .container {
-    background-color: white;
 }
 
 .input_style {
@@ -72,13 +84,8 @@ header {
     border-color: black;
 }
 
-.double_element {
-    min-height: 340px;
-    width: 48.8%;
-}
-
 .error {
-    color: rgb(212, 87, 75);
+    color: rgb(236, 31, 43);
 }
 
 .centered {

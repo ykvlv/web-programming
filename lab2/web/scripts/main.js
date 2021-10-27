@@ -9,13 +9,30 @@ const Y_MIN = -5, Y_MAX = 3;
 let xForm, yForm, rForm;
 let previousX, previousR;
 
-let canvas = new CoordinatesCanvas("canvas", 320, 8, X_MIN, X_MAX, Y_MIN, Y_MAX);
+let canvas = new CoordinatesCanvas("canvas", 480, 8, X_MIN, X_MAX, Y_MIN, Y_MAX);
+
+$(window).scroll(function () {
+    move(this);
+});
+
+function move(ev) {
+    if ($(ev).scrollTop() < 400) {
+        $('#monkey').css('left', window.innerWidth * 0.85 - $(ev).scrollTop() / 1.5);
+        $('#liana').css('left', window.innerWidth * 0.85 - $(ev).scrollTop() * 1.5);
+    } else {
+        $('#monkey').css('left', window.innerWidth * 0.85 - 400 / 1.5);
+        $('#liana').css('left', window.innerWidth * 0.85 - 400 * 1.5);
+
+    }
+}
 
 $("input[name=x]").click(function() {
     if (previousX !== null && previousX !== undefined) {
         previousX.style.borderColor = "black";
+        previousX.style.borderWidth = "1px";
     }
-    this.style.borderColor = "rgb(212, 87, 75)";
+    this.style.borderColor = "#329F5B";
+    this.style.borderWidth = "3px";
     xForm = this.value;
     validateX();
     previousX = this;
@@ -24,8 +41,10 @@ $("input[name=x]").click(function() {
 $("input[name=r]").click(function() {
     if (previousR !== null && previousR !== undefined) {
         previousR.style.borderColor = "black";
+        previousR.style.borderWidth = "1px";
     }
-    this.style.borderColor = "rgb(212, 87, 75)";
+    this.style.borderColor = "#329F5B";
+    this.style.borderWidth = "3px";
     rForm = this.value;
     validateR();
     previousR = this;
@@ -117,4 +136,5 @@ function setTableFrom(data) {
 
 function init() {
     document.getElementById("valueY").setAttribute("placeholder", `от ${Y_MIN} до ${Y_MAX}`);
+    move(window);
 }

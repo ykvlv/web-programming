@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalTime;
 
 @WebServlet(urlPatterns = {"table/*"})
@@ -37,10 +36,10 @@ public class TableControllerServlet extends HttpServlet {
     }
 
     private void addHitRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setAttribute("time", LocalTime.now().toString());
-        req.setAttribute("x", req.getParameter("x"));
-        req.setAttribute("y", req.getParameter("y"));
-        req.setAttribute("r", req.getParameter("r"));
+        req.setAttribute(AreaCheckServlet.TIME_ATTR, LocalTime.now().toString());
+        req.setAttribute(AreaCheckServlet.X_ATTR, req.getParameter("x"));
+        req.setAttribute(AreaCheckServlet.Y_ATTR, req.getParameter("y"));
+        req.setAttribute(AreaCheckServlet.R_ATTR, req.getParameter("r"));
 
         AreaCheckServlet areaCheckServlet = new AreaCheckServlet();
         areaCheckServlet.init();
@@ -48,7 +47,7 @@ public class TableControllerServlet extends HttpServlet {
         areaCheckServlet.destroy();
 
         Table table = getTable();
-        Hit hit = (Hit) req.getAttribute("hit");
+        Hit hit = (Hit) req.getAttribute(AreaCheckServlet.HIT_ATTRIBUTE);
         table.addHit(hit);
         setTable(table);
 
