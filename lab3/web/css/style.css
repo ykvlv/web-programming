@@ -1,0 +1,75 @@
+.main-container {
+    width: 100%;
+}
+
+.big-container {
+    max-width: 1080px;
+    margin: auto;
+    background-color: white;
+}
+
+.small-container {
+    margin-bottom: 10px;
+}
+
+.clock {
+    max-width: 1080px;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+#clock {
+    font-weight: bold;
+    font-size: 200px;
+    font-family: POLYARegular-Regular, serif;
+}
+
+.clear {
+    clear: both;
+}
+
+.menu {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 1080px;
+    min-height: 60px;
+    margin: auto
+}
+
+.header {
+    background-color: #329F5B;
+    width: 100%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    position: fixed;
+}
+
+#logo {
+    width: 360px;
+    height: 40px;
+    float: left;
+}
+
+#author {
+    font-weight: bold;
+    color: white;
+    font-size: 26px;
+    margin-top: 7px;
+    float: right;
+}
+
+body {
+    margin: auto;
+    background-color: #fbfbfb;
+}
+
+@font-face {
+    font-family: 'font57ea44bb3dd9c1a3d6aace37d7810526';
+
+    src:    url('https://nomail.com.ua/files/eot/57ea44bb3dd9c1a3d6aace37d7810526.eot?#iefix') format('embedded-opentype'),
+    url('https://nomail.com.ua/files/woff/57ea44bb3dd9c1a3d6aace37d7810526.woff') format('woff'),
+    url('https://nomail.com.ua/files/woff2/57ea44bb3dd9c1a3d6aace37d7810526.woff2') format('woff2');
+}
+
+@font-face { font-family: 'POLYARegular-Regular';  src: local('POLYARegular-Regular'), url('https://nomail.com.ua/files/woff/57ea44bb3dd9c1a3d6aace37d7810526.woff') format('woff'); }
+

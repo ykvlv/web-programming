@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <link rel="stylesheet" href="css/style.css"/>
+</h:head>
+<h:body>
+    <ui:include src="header.xhtml"/>
+    <div class="main-conrainer">
+        <table class="big-container">
+            <tr>
+                <td>
+                    <div class="small-container">
+                        <h:form id="canvas-form">
+                            <canvas id="canvas"/>
+                            <p:slider for="canvas-r" range="false" minValue="#{hitBean.MIN_R}" maxValue="#{hitBean.MAX_R}" step="0.01" style="width: auto" onSlide="rChanged();"/>
+                            <p:inputText style="display: none" id="canvas-x" value="#{hitBean.canvasX}" converter="javax.faces.Double"/>
+                            <p:inputText style="display: none" id="canvas-y" value="#{hitBean.canvasY}" converter="javax.faces.Double"/>
+                            <p:inputText style="display: none" id="canvas-r" value="#{hitBean.canvasR}" converter="javax.faces.Double"/>
+                            <p:commandButton style="display: none" value="Canvas" actionListener="#{hitBean.addHitCanvas}" update=":table-form:table :table-form:json-history" oncomplete="updateHits();"/>
+                        </h:form>
+                    </div>
+                </td>
+                <td>
+                    <div class="big-container">
+                        <h:form id="main-form">
+                            <div class="small-container">
+                                <p:message for="x" id="msgX"/><br/>
+                                <p:outputLabel value="Выберите X:" for="x"/>
+                                <p:selectOneRadio id="x" value="#{hitBean.x}"
+                                                  converter="javax.faces.Integer"
+                                                  converterMessage="Выберите значение из предложенных">
+                                    <p:ajax update="msgX" event="click"/>
+                                    <f:selectItems value="#{hitBean.possibleX}"/>
+                                </p:selectOneRadio>
+                            </div>
+                            <div class="small-container">
+                                <p:outputLabel for="y" value="Введите Y:"/><br/>
+                                <p:inputText id="y" value="#{hitBean.y}"
+                                             converter="javax.faces.Double"
+                                             converterMessage="Ожидается число с плавающей точкой" placeholder="Y">
+                                    <p:ajax update="msgY" event="keyup"/>
+                                </p:inputText>
+                                <p:message for="y" id="msgY"/>
+                            </div>
+                            <div class="small-container">
+                                <p:outputLabel value="Введите R:" for="r"/><br/>
+                                <p:inputText id="r" value="#{hitBean.r}"
+                                             converter="javax.faces.Double"
+                                             converterMessage="Ожидается число с плавающей точкой" placeholder="R" onkeyup="rChanged2()">
+                                    <p:ajax update="msgR" event="keyup"/>
+                                </p:inputText>
+                                <p:message for="r" id="msgR"/>
+                            </div>
+                            <div class="small-container">
+                                <p:commandButton value="Отправить" actionListener="#{hitBean.addHit}" update="@form :table-form:table :table-form:json-history" oncomplete="updateHits();"/>
+                            </div>
+                        </h:form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="big-container">
+            <h:form id="table-form">
+                <div class="small-container">
+                    <p:dataTable value="#{hitHistory.hits}" var="hit" id="table" emptyMessage="Данные не найдены" scrollable="true" scrollHeight="500">
+                        <p:column headerText="X">
+                            <p:outputLabel value="#{hit.x}"/>
+                        </p:column>
+                        <p:column headerText="Y">
+                            <p:outputLabel value="#{hit.y}"/>
+                        </p:column>
+                        <p:column headerText="R">
+                            <p:outputLabel value="#{hit.r}"/>
+                        </p:column>
+                        <p:column headerText="Время запроса">
+                            <p:outputLabel value="#{hit.formattedTime}"/>
+                        </p:column>
+                        <p:column headerText="Время выполнения">
+                            <p:outputLabel value="#{hit.executionTime}"/>
+                        </p:column>
+                        <p:column headerText="Попадание">
+                            <p:outputLabel value="#{(hit.result? 'Да' : 'Нет')} "/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton actionListener="#{hitHistory.clearHits}" value="Очистить" update="@form" oncomplete="updateHits();"/>
+                </div>
+                <div class="small-container">
+                    <p:outputLabel id="dbMessage" value="#{hitHistory.dbMessage}"/><br/>
+                    <p:commandButton style="display: none" actionListener="#{hitHistory.dbConnect}" value="Подключиться" update="dbMessage" async="true"/>
+                    <h:outputText style="display: none" id="json-history" value="#{hitHistory.jsonHits}"/>
+                    <p:commandButton actionListener="#{hitHistory.loadFromDb}" value="Синхронизировать" update="@form" oncomplete="updateHits();"/>
+                    <p:commandButton actionListener="#{hitHistory.appendToDb}" value="Записать" update="@form" oncomplete="updateHits();"/>
+                </div>
+            </h:form>
+            <a href="index.xhtml">На главную</a>
+        </div>
+    </div>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/canvas.js" type="text/javascript"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/main.js" type="text/javascript"></script>
+</h:body>
+</html>

@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="lab3">
+    <output-path>$PROJECT_DIR$/out/artifacts/lab3</output-path>
+    <root id="archive" name="lab3.war">
+      <element id="javaee-facet-resources" facet="lab3/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.enterprise:cdi-api:2.0" />
+          <element id="library" level="project" name="javax.validation:validation-api:2.0.1.Final" />
+          <element id="library" level="project" name="javax.faces:javax.faces-api:2.3" />
+          <element id="library" level="project" name="org.primefaces:primefaces:10.0.0" />
+          <element id="library" level="project" name="com.oracle.database.jdbc:ojdbc8:21.3.0.0" />
+          <element id="library" level="project" name="com.oracle.ojdbc:orai18n:19.3.0.0" />
+          <element id="library" level="project" name="com.google.code.gson:gson:2.8.9" />
+        </element>
+        <element id="directory" name="classes">
+          <element id="module-output" name="lab3" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
