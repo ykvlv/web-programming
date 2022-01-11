@@ -6,16 +6,16 @@ import ykvlv.lab4.data.entity.User;
 
 import java.util.Collection;
 
-public class MyUserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private final User user;
 
-    public MyUserPrincipal(User user) {
+    public UserPrincipal(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return user.getRoles();
     }
 
     @Override

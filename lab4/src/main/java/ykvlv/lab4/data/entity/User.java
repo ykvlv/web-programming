@@ -1,6 +1,8 @@
 package ykvlv.lab4.data.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "lab4_users")
@@ -13,6 +15,8 @@ public class User {
     private String username;
     private String password;
     private boolean active;
+    @ManyToMany
+    private List<Role> roles = new ArrayList<>();
 
     protected User() { }
 
@@ -48,5 +52,13 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

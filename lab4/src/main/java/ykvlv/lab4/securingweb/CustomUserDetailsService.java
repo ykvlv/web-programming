@@ -8,10 +8,10 @@ import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.data.repository.UserRepository;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    protected MyUserDetailsService(UserRepository userRepository) {
+    protected CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new MyUserPrincipal(user);
+        return new UserPrincipal(user);
     }
 
 
