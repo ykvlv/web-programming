@@ -16,11 +16,17 @@ public class User {
     private String password;
     private boolean active;
     @ManyToMany
+    //TODO использовать enum вместо значений из ДБ
     private List<Role> roles = new ArrayList<>();
 
     protected User() { }
 
-
+    public User(String username, String password, boolean active, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
