@@ -1,13 +1,13 @@
 package ykvlv.lab4.data.entity;
 
+import ykvlv.lab4.data.role.Role;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "lab4_users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,9 +15,10 @@ public class User {
     private String username;
     private String password;
     private boolean active;
-    @ManyToMany
-    //TODO использовать enum вместо значений из ДБ
-    private List<Role> roles = new ArrayList<>();
+    @CollectionTable(name = "lab4_roles")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<Role> roles;
 
     protected User() { }
 

@@ -5,9 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ykvlv.lab4.data.dto.UserDto;
-import ykvlv.lab4.data.entity.Role;
+import ykvlv.lab4.data.role.Role;
 import ykvlv.lab4.data.entity.User;
-import ykvlv.lab4.data.repository.RoleRepository;
 import ykvlv.lab4.data.repository.UserRepository;
 
 import java.util.Collections;
@@ -15,12 +14,10 @@ import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
-    protected UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    protected UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -34,7 +31,8 @@ public class UserService implements UserDetailsService {
 
     //TODO нормальную валидацию и шифрование пароля
     public boolean userValid(UserDto userDto) {
-        return usernameValid(userDto.getUsername()) && passwordValid(userDto.getPassword(), userDto.getConfirmPassword());
+        return usernameValid(userDto.getUsername()) &&
+                passwordValid(userDto.getPassword(), userDto.getConfirmPassword());
     }
 
     private boolean usernameValid(String username) {
@@ -50,8 +48,13 @@ public class UserService implements UserDetailsService {
     }
 
     public User registerNewUser(UserDto userDto) {
-        Role userRole = roleRepository.getById("ROLE_USER");
-        User user = new User(userDto.getUsername(), userDto.getPassword(), true, Collections.singletonList(userRole));
+        User user = new User(
+                userDto.getUsername(),
+                userDto.getPassword(),
+                true,
+                Collections.singletonList(
+                        Role.ROLE_USER
+                ));
         userRepository.save(user);
         return user;
     }
