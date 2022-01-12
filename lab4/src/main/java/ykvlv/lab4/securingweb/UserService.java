@@ -1,5 +1,6 @@
 package ykvlv.lab4.securingweb;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,12 +14,9 @@ import java.util.Collections;
 
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-
-    protected UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
