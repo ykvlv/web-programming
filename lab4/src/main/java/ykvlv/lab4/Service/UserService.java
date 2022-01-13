@@ -1,4 +1,4 @@
-package ykvlv.lab4.securingweb;
+package ykvlv.lab4.Service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,12 +6,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ykvlv.lab4.data.dto.Response;
 import ykvlv.lab4.data.dto.UserDto;
 import ykvlv.lab4.data.role.Role;
 import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.data.repository.UserRepository;
-import ykvlv.lab4.exception.UserRegisterException;
+import ykvlv.lab4.exception.InvalidUserException;
+import ykvlv.lab4.security.UserPrincipal;
 
 import java.util.Collections;
 
@@ -31,39 +31,39 @@ public class UserService implements UserDetailsService {
         return new UserPrincipal(user);
     }
 
-    public boolean userValid(UserDto userDto) {
-        return usernameValid(userDto.getUsername()) &&
-                passwordValid(userDto.getPassword(), userDto.getConfirmPassword());
+    public boolean isUserValid(UserDto userDto) throws InvalidUserException {
+        return isUsernameValid(userDto.getUsername()) &&
+                isPasswordValid(userDto.getPassword(), userDto.getConfirmPassword());
     }
 
-    private boolean usernameValid(String username) {
+    private boolean isUsernameValid(String username) throws InvalidUserException {
         final int MIN_LENGTH = 5;
         if (username == null) {
-            throw new UserRegisterException("Имя пользователя пустое");
+            throw new InvalidUserException("Имя пользователя пустое");
         } else if (username.length() < MIN_LENGTH) {
-            throw new UserRegisterException("Минимальная длина имени пользователя — " + MIN_LENGTH);
+            throw new InvalidUserException("Минимальная длина имени пользователя — " + MIN_LENGTH);
         } else if (userRepository.existsByUsername(username)) {
-            throw new UserRegisterException("Пользователь с таким именем существует");
+            throw new InvalidUserException("Пользователь с таким именем существует");
         } else {
             return true;
         }
     }
 
-    private boolean passwordValid(String password, String confirmPassword) {
+    private boolean isPasswordValid(String password, String confirmPassword) throws InvalidUserException {
         final int MIN_LENGTH = 8;
         if (password == null || confirmPassword == null) {
-            throw new UserRegisterException("Поле пароля пустое");
+            throw new InvalidUserException("Поле пароля пустое");
         } else if (password.length() < MIN_LENGTH) {
-            throw new UserRegisterException("Минимальная длина пароля — " + MIN_LENGTH);
+            throw new InvalidUserException("Минимальная длина пароля — " + MIN_LENGTH);
         } else if (!password.equals(confirmPassword)) {
-            throw new UserRegisterException("Введенные пароли отличаются");
+            throw new InvalidUserException("Введенные пароли отличаются");
         } else {
             return true;
         }
     }
 
-    public Response<User> registerNewUser(UserDto userDto) {
-        if (userValid(userDto)) {
+    public User registerNewUser(UserDto userDto) throws InvalidUserException {
+        if (isUserValid(userDto)) {
             User user = new User(
                     userDto.getUsername(),
                     bCryptPasswordEncoder.encode(userDto.getPassword()),
@@ -72,9 +72,8 @@ public class UserService implements UserDetailsService {
                             Role.ROLE_USER
                     ));
             userRepository.save(user);
-            return new Response<>("Успешная регистрация", true, user);
-        } else {
-            throw new UserRegisterException("Не удалось заренистрироваться");
+            return user;
         }
+        throw new InvalidUserException("Зарегистрировать пользователя не удалось");
     }
 }

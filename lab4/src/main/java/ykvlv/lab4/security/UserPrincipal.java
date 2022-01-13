@@ -1,4 +1,4 @@
-package ykvlv.lab4.securingweb;
+package ykvlv.lab4.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

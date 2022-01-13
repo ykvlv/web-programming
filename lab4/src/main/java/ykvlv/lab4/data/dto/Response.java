@@ -5,6 +5,6 @@ import lombok.Value;
 @Value
 public class Response<T> {
     String message;
-    boolean withObject;
+    boolean success;
     T object;
 }

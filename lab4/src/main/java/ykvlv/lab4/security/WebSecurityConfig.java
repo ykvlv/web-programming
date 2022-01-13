@@ -1,4 +1,4 @@
-package ykvlv.lab4.securingweb;
+package ykvlv.lab4.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -20,7 +19,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO а ну нормально сделал бл
         http
                 .csrf().disable()
                 .authorizeRequests()
@@ -37,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // неужели это правда так криво конфигурируется(
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
