@@ -8,9 +8,11 @@ import ykvlv.lab4.data.dto.Response;
 import ykvlv.lab4.data.entity.Hit;
 import ykvlv.lab4.exception.BadArgumentException;
 
+import java.util.List;
+
+
 @RestController
 @RequestMapping("/application")
-@PreAuthorize("hasAuthority('ROLE_USER')")
 public class ApplicationController {
     private final HitService hitService;
 
@@ -37,5 +39,10 @@ public class ApplicationController {
         } catch (BadArgumentException e) {
             return new Response<>(e.getMessage(), false, null);
         }
+    }
+
+    @GetMapping("/all")
+    public List<Hit> allHits() {
+        return hitService.getAll();
     }
 }

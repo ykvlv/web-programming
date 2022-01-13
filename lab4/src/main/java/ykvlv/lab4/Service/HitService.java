@@ -8,6 +8,7 @@ import ykvlv.lab4.exception.BadArgumentException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class HitService {
@@ -42,5 +43,9 @@ public class HitService {
         } else {
             throw new BadArgumentException("Попадания с таким id не существует");
         }
+    }
+
+    public List<Hit> getAll() {
+        return hitRepository.findAll();
     }
 }
