@@ -12,10 +12,7 @@ import java.util.List;
 @NoArgsConstructor @Getter @Setter
 @Table(name = "lab4_users")
 public class User {
-    //TODO валидацию по аннотациям
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;

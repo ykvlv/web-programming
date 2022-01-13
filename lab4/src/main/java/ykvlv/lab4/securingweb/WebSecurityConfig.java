@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().hasAuthority("ROLE_USER")
                 .and()
                     .formLogin()
-                    .loginPage("/login")
                     .permitAll()
                 .and()
                     .logout()
@@ -36,11 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //TODO хранить пароли защищенно
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .passwordEncoder(bCryptPasswordEncoder)
                 .usersByUsernameQuery("select username, password, active " +
                         "from lab4_users " +
                         "where username=?")
