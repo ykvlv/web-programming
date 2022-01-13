@@ -1,15 +1,17 @@
 package ykvlv.lab4.security;
 
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ykvlv.lab4.data.entity.User;
 
 import java.util.Collection;
 
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
     private final User user;
+
+    public UserPrincipal(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

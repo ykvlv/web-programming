@@ -1,6 +1,5 @@
 package ykvlv.lab4.Service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,17 +9,20 @@ import ykvlv.lab4.data.dto.UserDto;
 import ykvlv.lab4.data.role.Role;
 import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.data.repository.UserRepository;
-import ykvlv.lab4.exception.InvalidUserException;
+import ykvlv.lab4.exception.BadArgumentException;
 import ykvlv.lab4.security.UserPrincipal;
 
 import java.util.Collections;
 
 
 @Service
-@AllArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -31,39 +33,40 @@ public class UserService implements UserDetailsService {
         return new UserPrincipal(user);
     }
 
-    public boolean isUserValid(UserDto userDto) throws InvalidUserException {
+    public boolean userValid(UserDto userDto) throws BadArgumentException {
         return isUsernameValid(userDto.getUsername()) &&
                 isPasswordValid(userDto.getPassword(), userDto.getConfirmPassword());
     }
 
-    private boolean isUsernameValid(String username) throws InvalidUserException {
+    private boolean isUsernameValid(String username) throws BadArgumentException {
         final int MIN_LENGTH = 5;
+
         if (username == null) {
-            throw new InvalidUserException("Имя пользователя пустое");
+            throw new BadArgumentException("Имя пользователя пустое");
         } else if (username.length() < MIN_LENGTH) {
-            throw new InvalidUserException("Минимальная длина имени пользователя — " + MIN_LENGTH);
+            throw new BadArgumentException("Минимальная длина имени пользователя — " + MIN_LENGTH);
         } else if (userRepository.existsByUsername(username)) {
-            throw new InvalidUserException("Пользователь с таким именем существует");
+            throw new BadArgumentException("Пользователь с таким именем существует");
         } else {
             return true;
         }
     }
 
-    private boolean isPasswordValid(String password, String confirmPassword) throws InvalidUserException {
+    private boolean isPasswordValid(String password, String confirmPassword) throws BadArgumentException {
         final int MIN_LENGTH = 8;
         if (password == null || confirmPassword == null) {
-            throw new InvalidUserException("Поле пароля пустое");
+            throw new BadArgumentException("Поле пароля пустое");
         } else if (password.length() < MIN_LENGTH) {
-            throw new InvalidUserException("Минимальная длина пароля — " + MIN_LENGTH);
+            throw new BadArgumentException("Минимальная длина пароля — " + MIN_LENGTH);
         } else if (!password.equals(confirmPassword)) {
-            throw new InvalidUserException("Введенные пароли отличаются");
+            throw new BadArgumentException("Введенные пароли отличаются");
         } else {
             return true;
         }
     }
 
-    public User registerNewUser(UserDto userDto) throws InvalidUserException {
-        if (isUserValid(userDto)) {
+    public User register(UserDto userDto) throws BadArgumentException {
+        if (userValid(userDto)) {
             User user = new User(
                     userDto.getUsername(),
                     bCryptPasswordEncoder.encode(userDto.getPassword()),
@@ -74,6 +77,6 @@ public class UserService implements UserDetailsService {
             userRepository.save(user);
             return user;
         }
-        throw new InvalidUserException("Зарегистрировать пользователя не удалось");
+        throw new BadArgumentException("Не удалось зарегистрировать пользователя");
     }
 }
