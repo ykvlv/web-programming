@@ -1,9 +1,7 @@
 package ykvlv.lab4.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import ykvlv.lab4.Service.HitService;
 import ykvlv.lab4.data.dto.HitDto;
 import ykvlv.lab4.data.dto.Response;
@@ -12,6 +10,7 @@ import ykvlv.lab4.exception.BadArgumentException;
 
 @RestController
 @RequestMapping("/application")
+@PreAuthorize("hasAuthority('ROLE_USER')")
 public class ApplicationController {
     private final HitService hitService;
 
@@ -19,11 +18,22 @@ public class ApplicationController {
         this.hitService = hitService;
     }
 
-    @PostMapping("/addHit")
-    public Response<Hit> registration(@RequestBody HitDto hitDto) {
+    @PostMapping
+    public Response<Hit> addHit(@RequestBody HitDto hitDto) {
         try {
             Hit hit = hitService.add(hitDto);
             return new Response<>("Попадание успешно добавлено", true, hit);
+        } catch (BadArgumentException e) {
+            return new Response<>(e.getMessage(), false, null);
+        }
+    }
+
+    @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Response<Hit> deleteHit(@PathVariable long id) {
+        try {
+            Hit hit = hitService.delete(id);
+            return new Response<>("Попадание успешно удалено", true, hit);
         } catch (BadArgumentException e) {
             return new Response<>(e.getMessage(), false, null);
         }

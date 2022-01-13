@@ -1,8 +1,5 @@
 package ykvlv.lab4.Service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ykvlv.lab4.data.dto.UserDto;
@@ -10,27 +7,17 @@ import ykvlv.lab4.data.role.Role;
 import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.data.repository.UserRepository;
 import ykvlv.lab4.exception.BadArgumentException;
-import ykvlv.lab4.security.UserPrincipal;
 
 import java.util.Collections;
 
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new UserPrincipal(user);
     }
 
     public boolean userValid(UserDto userDto) throws BadArgumentException {

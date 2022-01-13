@@ -1,5 +1,6 @@
 package ykvlv.lab4.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import ykvlv.lab4.exception.BadArgumentException;
 
 @RestController
 @RequestMapping("/registration")
+@PreAuthorize("permitAll()")
 public class RegistrationController {
     private final UserService userService;
 
