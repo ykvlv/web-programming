@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <title>Лабораторная 4</title>
 </head>
 <body>
     <p>Добро пожаловать</p>
-    <a href="/login">Логин</a>
-    <a href="/reg">Регистрация</a>
+    <div sec:authorize="isAnonymous()">
+        <a href="/login">Логин</a>
+        <a href="/registration">Регистрация</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <div sec:authorize="hasRole('ADMIN')">Администратор ого</div>
+        <p>Вы уже авторизованы)</p>
+        <div sec:authentication="name"></div>
+        <form action="/app">
+            <button>Открыть приложение</button>
+        </form>
+        <form action="/logout">
+            <button>Выйти из аккаунта</button>
+        </form>
+    </div>
 </body>
 </html>

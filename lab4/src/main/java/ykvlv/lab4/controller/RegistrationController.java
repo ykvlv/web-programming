@@ -2,6 +2,7 @@ package ykvlv.lab4.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ykvlv.lab4.data.dto.Response;
 import ykvlv.lab4.data.dto.UserDto;
 import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.Service.UserService;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
     private final UserService userService;
 
@@ -19,20 +21,24 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @PostMapping("/registration")
-    //TODO userDto надо бы в параметрах принимать
-    public String registration(@RequestParam Map<String, String> body, HttpServletRequest req) {
+    @ResponseBody
+    @PostMapping
+    public Response<User> registration(@RequestBody UserDto userDto, HttpServletRequest req) {
         try {
-            UserDto userDto = new UserDto(body.get("username"), body.get("password"), body.get("confirmPassword"));
-
             User user = userService.register(userDto);
-            req.login(user.getUsername(), user.getPassword());
 
-            return "application";
+            req.login(userDto.getUsername(), userDto.getPassword());
+
+            return new Response<>("Регистрация прошла успешно", true, user);
         } catch (BadArgumentException e) {
-            return "forward:/reg?228";
+            return new Response<>(e.getMessage(), false, null);
         } catch (ServletException e) {
-            return "reg";
+            return new Response<>("Ошибка авторизации", false, null);
         }
+    }
+
+    @GetMapping
+    public String registration() {
+        return "registration";
     }
 }
