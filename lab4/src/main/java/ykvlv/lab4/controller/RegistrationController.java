@@ -36,9 +36,4 @@ public class RegistrationController {
             return new Response<>("Ошибка авторизации", false, null);
         }
     }
-
-    @GetMapping
-    public String registration() {
-        return "registration";
-    }
 }

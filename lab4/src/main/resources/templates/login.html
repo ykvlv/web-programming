@@ -3,33 +3,88 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ru">
 <head>
     <title>Логин</title>
+    <link rel="stylesheet" href="./resources/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <div sec:authorize="isAnonymous()">
-        <div th:if="${param.error}">
-            Неправильное имя пользователя или пароль
+<h2>Яковлев Григорий P3213 — ВЕБ. Лабораторная 4</h2>
+<div sec:authorize="isAnonymous()">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" id="registration" action="/registration">
+                <h1>Создать аккаунт</h1>
+                <div> </div>
+                <span class="authError" id="registrationError"></span>
+                <input type="text" placeholder="Имя пользователя" id="username"/>
+                <input type="password" placeholder="Пароль" id="password"/>
+                <input type="password" placeholder="Подтвердите пароль" id="confirmPassword"/>
+                <button type="submit" id="submit">РЕГИСТРАЦИЯ</button>
+            </form>
         </div>
-        <div th:if="${param.logout}">
-            Успешный выход из аккаунта
+        <div class="form-container sign-in-container">
+            <form action="/login" method="post">
+                <h1>Войти в аккаунт</h1>
+                <div> </div>
+                <span class="authError" th:if="${param.error}">
+                    Неверное имя пользователя или пароль
+                </span>
+                <span class="authError" th:if="${param.logout}">
+                    Успешный выход из аккаунта
+                </span>
+                <input type="text" placeholder="Имя пользователя" name="username" />
+                <input type="password" placeholder="Пароль" name="password" />
+                <button type="submit">ВХОД</button>
+            </form>
         </div>
-        <p>Войдите в аккаунт</p>
-        <form action="/login" method="post">
-            <div><label>username: <input type="text" name="username"/> </label></div>
-            <div><label>password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Вход"/></div>
-        </form>
-        <div>Еще нет аккаунта?</div>
-        <form action="/registration">
-            <button>Регистрация</button>
-        </form>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Добро пожаловать!</h1>
+                    <p>Ты уже смешарик?</p>
+                    <button class="ghost" id="signIn">ВХОД</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Привет, Billy!</h1>
+                    <p>Еще не вступил в наш gym?</p>
+                    <button class="ghost" id="signUp">РЕГИСТРАЦИЯ</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div sec:authorize="isAuthenticated()">
-        <div sec:authorize="hasRole('ADMIN')">Администратор ого</div>
-        <p>Вы уже авторизованы)</p>
-        <div sec:authentication="name"></div>
-        <form action="/logout">
-            <button>Выйти из аккаунта</button>
-        </form>
+    <script type="text/javascript" src="./resources/login.js"></script>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <div class="container">
+        <div class="form-container sign-in-container">
+            <form action="/logout">
+                <h1>Привет, <b sec:authentication="name"></b></h1>
+                <span>Вы успешно авторизированы!</span>
+                <div> </div>
+                <p>Ты можешь выйти из аккаунта в любое время</p>
+                <button type="submit">ВЫХОД</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1 sec:authorize="hasRole('ADMIN')">Вы — администратор</h1>
+                    <h1 sec:authorize="hasRole('USER') && !hasRole('ADMIN')">Вы простой юзер</h1>
+                    <p sec:authorize="isAuthenticated()">Скорее переходите в приложение чтобы использовать все свои возможности</p>
+                    <button class="ghost" onclick="location.href = '/app'">ПРИЛОЖЕНИЕ</button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<footer>
+    <p>
+        Автор страницы —
+        <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+        . Прочитать как она создавалась можно
+        <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">здесь</a>.
+    </p>
+</footer>
 </body>
 </html>
