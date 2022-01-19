@@ -1,4 +1,4 @@
-package ykvlv.lab4.security;
+package ykvlv.lab4.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,10 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/", "/registration").permitAll()
+                    .antMatchers("/", "/reg", "/registration").permitAll()
                     .anyRequest().authenticated()
                 .and()
-                    .formLogin()
+                    .formLogin().loginPage("/login").defaultSuccessUrl("/application", true)
                     .permitAll()
                 .and()
                     .logout()

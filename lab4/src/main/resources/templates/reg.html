@@ -2,25 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ru">
 <head>
-    <title>Логин</title>
+    <title>Регистрация</title>
 </head>
 <body>
     <div sec:authorize="isAnonymous()">
-        <div th:if="${param.error}">
-            Неправильное имя пользователя или пароль
-        </div>
-        <div th:if="${param.logout}">
-            Успешный выход из аккаунта
-        </div>
-        <p>Войдите в аккаунт</p>
-        <form action="/login" method="post">
+        <p>Регистрация нового пользователя</p>
+        <form th:action="@{/registration}" th:method="post">
             <div><label>username: <input type="text" name="username"/> </label></div>
             <div><label>password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Вход"/></div>
+            <div><label>confirm password: <input type="password" name="confirmPassword"/> </label></div>
+            <div><input type="submit" value="Регистрация"/></div>
         </form>
-        <div>Еще нет аккаунта?</div>
-        <form action="/reg">
-            <button>Регистрация</button>
+        <div>Уже есть аккаунт?</div>
+        <form action="/login">
+            <button>Войти</button>
         </form>
     </div>
     <div sec:authorize="isAuthenticated()">
