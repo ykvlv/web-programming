@@ -51,10 +51,6 @@ public class User {
         this.password = password;
     }
 
-    public Boolean isActive() {
-        return active;
-    }
-
     public void setActive(Boolean active) {
         this.active = active;
     }
@@ -65,5 +61,9 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 }

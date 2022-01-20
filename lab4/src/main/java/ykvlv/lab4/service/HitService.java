@@ -1,4 +1,4 @@
-package ykvlv.lab4.Service;
+package ykvlv.lab4.service;
 
 import org.springframework.stereotype.Service;
 import ykvlv.lab4.data.dto.HitDto;
@@ -20,14 +20,15 @@ public class HitService {
         this.hitChecker = hitChecker;
     }
 
-    public Hit add(HitDto hitDto) throws BadArgumentException {
+    public Hit add(HitDto hitDto, String username) throws BadArgumentException {
         if (hitChecker.hitValid(hitDto)) {
             Hit hit = new Hit(
                     hitDto.getX(),
                     hitDto.getY(),
                     hitDto.getR(),
                     Timestamp.valueOf(LocalDateTime.now()),
-                    hitChecker.isHit(hitDto));
+                    hitChecker.isHit(hitDto),
+                    username);
             hitRepository.save(hit);
             return hit;
         } else {
@@ -47,5 +48,9 @@ public class HitService {
 
     public List<Hit> getAll() {
         return hitRepository.findAll();
+    }
+
+    public Hit getById(Long id) {
+        return hitRepository.getById(id);
     }
 }

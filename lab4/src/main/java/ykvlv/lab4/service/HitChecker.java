@@ -1,4 +1,4 @@
-package ykvlv.lab4.Service;
+package ykvlv.lab4.service;
 
 import org.springframework.stereotype.Service;
 import ykvlv.lab4.data.dto.HitDto;

@@ -1,14 +1,15 @@
-package ykvlv.lab4.Service;
+package ykvlv.lab4.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ykvlv.lab4.data.dto.UserDto;
+import ykvlv.lab4.data.role.Operation;
 import ykvlv.lab4.data.role.Role;
 import ykvlv.lab4.data.entity.User;
 import ykvlv.lab4.data.repository.UserRepository;
 import ykvlv.lab4.exception.BadArgumentException;
 
-import java.util.Collections;
+import java.util.*;
 
 
 @Service
@@ -65,5 +66,18 @@ public class UserService {
             return user;
         }
         throw new BadArgumentException("Не удалось зарегистрировать пользователя");
+    }
+
+    public Set<Operation> getAllowedUserOperationsByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }
+        List<Role> roles = user.getRoles();
+        Set<Operation> operations = new HashSet<>();
+        for (Role role: roles) {
+            operations.addAll(role.getAllowedOperations());
+        }
+        return operations;
     }
 }

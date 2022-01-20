@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import ykvlv.lab4.data.dto.Response;
 import ykvlv.lab4.data.dto.UserDto;
 import ykvlv.lab4.data.entity.User;
-import ykvlv.lab4.Service.UserService;
+import ykvlv.lab4.service.UserService;
 import ykvlv.lab4.exception.BadArgumentException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/registration")

@@ -70,8 +70,9 @@
             <div class="overlay">
                 <div class="overlay-panel overlay-right">
                     <h1 sec:authorize="hasRole('ADMIN')">Вы — администратор</h1>
-                    <h1 sec:authorize="hasRole('USER') && !hasRole('ADMIN')">Вы простой юзер</h1>
-                    <p sec:authorize="isAuthenticated()">Скорее переходите в приложение чтобы использовать все свои возможности</p>
+                    <p sec:authorize="hasRole('ADMIN')">Скорее переходите в приложение, используйте все свои возможности!</p>
+                    <h1 sec:authorize="hasRole('USER') && !hasRole('ADMIN')">Вы простой USER</h1>
+                    <p sec:authorize="hasRole('USER') && !hasRole('ADMIN')">Скорее переходите в приложение и испытайте его!</p>
                     <button class="ghost" onclick="location.href = '/app'">ПРИЛОЖЕНИЕ</button>
                 </div>
             </div>

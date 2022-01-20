@@ -13,13 +13,15 @@ public class Hit {
     private Double r;
     private Timestamp requestTime;
     private Boolean hit;
+    private String owner;
 
-    public Hit(Double x, Double y, Double r, Timestamp requestTime, Boolean hit) {
+    public Hit(Double x, Double y, Double r, Timestamp requestTime, Boolean hit, String owner) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.requestTime = requestTime;
         this.hit = hit;
+        this.owner = owner;
     }
 
     public Hit() { }
@@ -64,11 +66,19 @@ public class Hit {
         this.requestTime = requestTime;
     }
 
-    public Boolean isHit() {
+    public void setHit(Boolean hit) {
+        this.hit = hit;
+    }
+
+    public Boolean getHit() {
         return hit;
     }
 
-    public void setHit(Boolean hit) {
-        this.hit = hit;
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
