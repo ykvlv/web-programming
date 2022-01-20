@@ -25,11 +25,11 @@ $(document).ready(function() {
 
 function sendAjaxForm(data) {
     $.ajax({
-        url:        "/registration",
-        type:       "POST",
-        contentType: "application/json",
-        dataType:   "json",
-        data: data,
+        url:            "/registration",
+        type:           "POST",
+        contentType:    "application/json",
+        dataType:       "json",
+        data:           data,
         success: [
             function(response) {
                 if (response.success) {

@@ -1,11 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-function App() {
-    return (
-        <div>
-            <p>пососи</p>
-        </div>
-    );
+import './App.css';
+import Main from "./Main";
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+
+
+// TODO почистить импорты, коменты
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                <Main />
+            </div>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = store => {
+    return {
+        app: store.app,
+    }
+};
+
+export default withRouter(connect(mapStateToProps)(App));
