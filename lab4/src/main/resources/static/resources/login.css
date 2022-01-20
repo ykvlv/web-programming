@@ -13,7 +13,7 @@ body {
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
-    margin: -20px 0 50px;
+    margin: 0;
 }
 
 h1 {
@@ -88,6 +88,7 @@ input {
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+    border-radius: 10px;
 }
 
 .container {
@@ -223,31 +224,28 @@ input {
     width: 40px;
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
-
 .authError {
     color: red;
+}
+
+@media only screen and (max-width: 800px) {
+    .container {
+        background: none;
+        position: static;
+        box-shadow: none;
+    }
+    body {
+        height: auto;
+    }
+    .overlay-container {
+        border-radius: 10px;
+        height: 90vh;
+        top: auto;
+    }
+    .form-container {
+        top: auto;
+        height: 90vh;
+        overflow: hidden;
+        border-radius: 10px;
+    }
 }
