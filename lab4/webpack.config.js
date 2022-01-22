@@ -21,13 +21,30 @@ module.exports = {
                 }]
             },
             {
-                test: /\.js$/,
-                enforce: "pre",
-                use: ["source-map-loader"],
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[path][name].[ext]?[contenthash]',
+                        },
+                    },
+                ],
             },
             {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"]
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                            importLoaders: 1,
+                        }
+                    },
+                    "postcss-loader"
+                ]
             },
         ]
     }

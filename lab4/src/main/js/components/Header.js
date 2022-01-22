@@ -5,11 +5,7 @@ class Header extends React.Component {
         const { name, surname, variant, group } = this.props;
         return (
             <div className="header">
-                <em>
-                    <p>{surname + " " + name}</p>
-                    <p>Вариант №{variant}</p>
-                    <p>Группа №{group}</p>
-                </em>
+                <h2>{surname} {name} {group}. Вариант {variant}</h2>
             </div>
         )
     }

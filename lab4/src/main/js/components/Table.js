@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-// TODO в каком виде хранятся?
 class Table extends React.Component {
     render() {
+        let table = [...this.props.app.table]
         return (
             <div className="table">
                 <table>
@@ -18,13 +18,13 @@ class Table extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.app.table.map(point =>
+                        {table.reverse().map(point =>
                             <tr key={point.id}>
                                 <td>{point.id}</td>
                                 <td>{point.x}</td>
                                 <td>{point.y}</td>
                                 <td>{point.r}</td>
-                                <td>{point.hit}</td>
+                                <td>{point.hit.toString()}</td>
                                 <td>{point.owner}</td>
                             </tr>
                         )}

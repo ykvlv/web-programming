@@ -1,10 +1,18 @@
-/*TODO хммм прикольно*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+
 
 body {
-    background-color: lightsteelblue;
+    background-color: #f6f5f7;
     font-size: 20px;
-    font-family: "Comic Sans MS", serif;
+    font-family: "Montserrat", serif;
 }
+
+.header {
+    text-align: center;
+    margin-top: 100px;
+}
+
 
 p {
     line-height: 30%;
@@ -18,23 +26,39 @@ canvas {
 }
 
 
-@media (min-width: 708px) {
-    .header {
-        color: purple;
-        font-size: 35px;
-        text-align: center;
-        top: 0;
-        margin-bottom: 10%;
-        background: papayawhip;
-        padding: 1px 3px 3px;
-        border-radius: 20px; /* Уголки */
-        /*min-width: 708px;*/
-        /*max-width: 1169px;*/
-        position: page;
-        width: 100%;
-    }
+table tr:nth-child(odd) {
+    background-color: #ff9ab0;
+}
 
+thead tr {
+    background-color: #FF416C !important;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse !important;
+    border-radius: 1em !important;
+    overflow: hidden !important;
+    text-align: center;
+    color: black;
+}
+
+table tbody tr:hover {
+    background-color: #FF416C;
+    color: white;
+}
+
+@media (min-width: 708px) {
     .centerBorderMain {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+        0 10px 10px rgba(0,0,0,0.22);
         background: white; /* Цвет фона */
         color: black; /* Цвет текста */
         /* Поля вокруг текста */
@@ -43,7 +67,7 @@ canvas {
         margin: auto;
         min-width: 650px;
         width: 70%;
-        height: 340px;
+        height: 70vh;
         opacity: 0.77;
         overflow: scroll;
     }
@@ -61,7 +85,7 @@ canvas {
     }
 
     .commonGroup > .fillItPls, .inputArea {
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         border-radius: 15px;
         opacity: 1;
@@ -90,7 +114,7 @@ canvas {
 
 
     .commonGroup > .enterY {
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         border-radius: 15px;
         opacity: 1;
@@ -105,7 +129,7 @@ canvas {
         font-size: medium;
         height: 35px;
         width: 90%;
-        border-color: #800080;
+        border-color: #FF416C;
         border-radius: 5px;
         border-width: medium;
     }
@@ -113,10 +137,11 @@ canvas {
 
     table {
         margin-top: 60px;
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         width: 100%; /* Ширина таблицы */
-        border-spacing: 1px; /* Расстояние между ячейками */
+        border-spacing: 0; /* Расстояние между ячейками */
+        border-radius: 15px;
         text-align: center;
         overflow: scroll;
     }
@@ -160,21 +185,6 @@ canvas {
 
 
 @media (max-width: 707px) {
-
-    .header {
-        color: purple;
-        font-size: 35px;
-        text-align: center;
-        top: 0;
-        margin-bottom: 7%;
-        background: papayawhip;
-        padding: 1px 3px 3px;
-        min-width: 402px;
-        border-radius: 20px; /* Уголки */
-        position: page;
-        width: 100%;
-    }
-
     .centerBorderMain {
         display: block;
         background: white; /* Цвет фона */
@@ -187,7 +197,7 @@ canvas {
         max-width: 370px;
         min-width: 340px;
         width: 75%;
-        height: 300px;
+        height: 70vh;
         opacity: 0.77;
         overflow: scroll;
     }
@@ -217,7 +227,7 @@ canvas {
     }
 
     .commonGroup > .fillItPls, .inputArea {
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         border-radius: 15px;
         opacity: 1;
@@ -246,7 +256,7 @@ canvas {
 
 
     .commonGroup > .enterY {
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         border-radius: 15px;
         opacity: 1;
@@ -261,7 +271,7 @@ canvas {
         font-size: medium;
         height: 35px;
         width: 90%;
-        border-color: #800080;
+        border-color: #FF416C;
         border-radius: 5px;
         border-width: medium;
     }
@@ -270,11 +280,12 @@ canvas {
 
 
     table {
+        border-radius: 15px;
         margin-top: 60px;
-        background: rgba(159, 19, 255, 0.37);
+        background: #ff9ab0;
         color: black;
         width: 100%; /* Ширина таблицы */
-        border-spacing: 1px; /* Расстояние между ячейками */
+        border-spacing: 0; /* Расстояние между ячейками */
         text-align: center;
         overflow: scroll;
     }
@@ -319,8 +330,9 @@ canvas {
     }
 
     .checkButtonInside {
-        background-color: papayawhip;
-        border-color: #800080;
+        background-color: white;
+        border-color: #FF416C;
+        color: black;
         border-radius: 5px;
         width: 100% !important;
         height: 35px !important;
@@ -330,22 +342,6 @@ canvas {
 
 
 @media (min-width: 1169px) {
-
-    .header {
-        color: purple;
-        font-size: 35px;
-        text-align: center;
-        top: 0;
-        margin-bottom: 7%;
-        background: papayawhip;
-        padding: 1px 3px 3px;
-        border-radius: 20px; /* Уголки */
-        /*min-width: 708px;*/
-        /*max-width: 1169px;*/
-        position: page;
-        width: 100%;
-    }
-
     .centerBorderMain {
         background: white; /* Цвет фона */
         color: black; /* Цвет текста */
@@ -355,7 +351,7 @@ canvas {
         margin: auto;
         max-width: 850px;
         width: 70%;
-        height: 340px;
+        height: 70vh;
         opacity: 0.77;
         overflow: scroll;
     }
@@ -365,7 +361,7 @@ canvas {
 .footer {
     position: fixed;
     bottom: 0;
-    background: papayawhip;
+    background: white;
     padding-top: 10px;
     border-radius: 20px; /* Уголки */
     width: 100%;
@@ -373,17 +369,18 @@ canvas {
 
 
 .checkButtonInside {
-    background-color: papayawhip;
-    border-color: #800080;
+    background-color: white;
+    border-color: #FF416C;
     border-radius: 5px;
     width: 130px;
     height: 30px;
-    font-family: "Comic Sans MS", serif;
+    color: black;
+    font-family: "Montserrat", serif;
     font-size: 15px;
 }
 
 .commonGroup > .checkButton {
-    background: rgba(159, 19, 255, 0.37);
+    background: #ff9ab0;
     color: black;
     border-radius: 15px;
     opacity: 1;
@@ -422,7 +419,7 @@ label#title {
 }
 
 .commonGroup > .XR > * {
-    background: rgba(159, 19, 255, 0.37);
+    background: #ff9ab0;
     color: black;
     border-radius: 15px;
     opacity: 1;
@@ -431,7 +428,7 @@ label#title {
 
 .dropdown {
     font-size: medium;
-    border-color: #800080;
+    border-color: #FF416C;
 }
 
 .inputArea, .commonGroup > .inputArea {
@@ -448,8 +445,8 @@ input[type=text], input[type=password] {
     height: 30px;
     font-size: 20px;
     text-align: center;
-    background-color: papayawhip;
-    border-color: #800080;
+    background-color: white;
+    border-color: #FF416C;
     border-radius: 5px;
     margin: auto;
 }
@@ -458,9 +455,8 @@ input[type=text], input[type=password] {
 input::placeholder {
     text-align: center;
     font-size: 15px;
-    font-style: italic;
     color: #575757;
-    font-family: "Comic Sans MS", serif;
+    font-family: "Montserrat", serif;
 
 }
 
@@ -494,7 +490,7 @@ input::placeholder {
 }
 
 .buttonArea {
-    background: rgba(159, 19, 255, 0.37);
+    background: #ff9ab0;
     color: black;
     border-radius: 15px;
     opacity: 1;
@@ -534,5 +530,3 @@ p#negodiay {
 circle#target-dot {
     color: red;
 }
-
-

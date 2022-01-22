@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-// TODO где бы убрать импорты
-import './index.css';
 import Header from "./components/Header";
 import PointForm from "./components/PointForm";
 import Graphic from "./components/Graphic";
 import Table from "./components/Table";
-import {getPoints} from "./actions/appActions";
+import { getPoints } from "./actions/appActions";
 
-// TODO грязь
 class App extends Component {
 
     constructor(props) {

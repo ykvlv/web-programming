@@ -1,9 +1,6 @@
 import React from 'react';
-import '../index.css';
 import {connect} from 'react-redux';
 import {sendPoint, setR, setX, setY} from "../actions/appActions";
-
-// TODO переделать график
 
 let circles = [];
 
@@ -33,11 +30,11 @@ class Graphic extends React.Component {
 
     drawPoints(table) {
         for (const point of table) {
-            this.drawPoint(point.x, point.y, point.r, point.result)
+            this.drawPoint(point.x, point.y, point.r, point.hit)
         }
     }
 
-    drawPoint(x, y, r, result) {
+    drawPoint(x, y, r, hit) {
         const xmlns = "http://www.w3.org/2000/svg";
 
         let circle = document.createElementNS(xmlns, "circle");
@@ -53,7 +50,7 @@ class Graphic extends React.Component {
         circle.setAttribute('r', 3);
 
 
-        if (result) circle.style.fill = 'green';
+        if (hit) circle.style.fill = 'green';
         else circle.style.fill = 'red';
 
         let svg = document.getElementById("svg");
@@ -65,7 +62,7 @@ class Graphic extends React.Component {
     render() {
         return (
             <div className="svg">
-                <svg id="svg" width="300" height="300" class="svg-graph">
+                <svg id="svg" width="300" height="300" className="svg-graph">
 
 
                     <line className="axis" x1="0" x2="300" y1="150" y2="150" stroke="black"/>
@@ -100,16 +97,16 @@ class Graphic extends React.Component {
                     <text className="axis-text" x="290" y="170">X</text>
                     <text className="axis-text" x="160" y="13">Y</text>
 
-                    <polygon class="rectangle-figure" points="150,150 250,150 250,250, 150,250"
-                             fill="blue" fillOpacity="0.7" stroke="blue"/>
+                    <polygon className="rectangle-figure" points="150,150 250,150 250,250, 150,250"
+                             fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
-                    <polygon class="triangle-figure" points="50,150 150,150 150,200"
-                             fill="blue" fillOpacity="0.7" stroke="blue"/>
+                    <polygon className="triangle-figure" points="50,150 150,150 150,200"
+                             fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
-                    <path class="circle-figure" d="M 100 150 A 50 50, 180, 0, 1, 150 100 L 150 150 Z"
-                          fill="blue" fillOpacity="0.7" stroke="blue"/>
+                    <path className="circle-figure" d="M 100 150 A 50 50, 180, 0, 1, 150 100 L 150 150 Z"
+                          fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
-                    <polygon ref='frame' onClick={this.handleClickFrame} id="frame" class="frame"
+                    <polygon ref='frame' onClick={this.handleClickFrame} id="frame" className="frame"
                              points="0,0 0,300 300,300 300,0"/>
 
                 </svg>
@@ -129,7 +126,7 @@ class Graphic extends React.Component {
 
 
         if (this.props.app.r == null) {
-            label.innerHTML = "Ну не по-пацански это, R выберите";
+            label.innerHTML = "Сначала выберите R — радиус";
         } else {
             label.innerHTML = "";
 
