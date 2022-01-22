@@ -7,22 +7,23 @@ import { connect } from 'react-redux';
 import { sendPoint, setAnswer, setR, setX, setY } from "../actions/appActions";
 
 const paramXValues = [
-    {value: '-4', label: '-4'},
     {value: '-3', label: '-3'},
     {value: '-2', label: '-2'},
     {value: '-1', label: '-1'},
     {value: '0', label: '0'},
     {value: '1', label: '1'},
     {value: '2', label: '2'},
-    {value: '3', label: '3'},
-    {value: '4', label: '4'}
+    {value: '3', label: '3'}
 ];
 
 const paramRValues = [
+    {value: '-3', label: '-3'},
+    {value: '-2', label: '-2'},
+    {value: '-1', label: '-1'},
+    {value: '0', label: '0'},
     {value: '1', label: '1'},
     {value: '2', label: '2'},
-    {value: '3', label: '3'},
-    {value: '4', label: '4'}
+    {value: '3', label: '3'}
 ];
 
 
@@ -60,7 +61,7 @@ class PointForm extends React.Component {
 
     paramsIsReady = () => {
         let errors = this.state.formErrors;
-        if (!this.state.formValid) errors.all = 'Провести меня вздумали? Поля заполните и не буяньте тут';
+        if (!this.state.formValid) errors.all = 'Заполните все поля';
         else {
             this.preparePoint(this.props.app.x, this.props.app.y, this.props.app.r);
         }
@@ -88,18 +89,18 @@ class PointForm extends React.Component {
         switch (fieldName) {
             case 'paramX':
                 paramXValid = (value !== '');
-                fieldValidationErrors.paramX = paramXValid ? '' : 'Вы же X не выбрали, повнимательнее';
+                fieldValidationErrors.paramX = paramXValid ? '' : 'Выберите X';
                 break;
             case 'paramR':
                 paramRValid = (value !== '');
-                fieldValidationErrors.paramR = paramRValid ? '' : 'Вы же R не выбрали, повнимательнее';
+                fieldValidationErrors.paramR = paramRValid ? '' : 'Выберите R';
                 break;
             case 'paramY':
                 paramYValid = (value !== '');
-                fieldValidationErrors.paramY = paramYValid ? '' : 'А Y я вводить буду?';
+                fieldValidationErrors.paramY = paramYValid ? '' : 'Введите Y';
                 if (!paramYValid) break;
-                paramYValid = (!(isNaN(value) && value || !isNaN(value) && (Number(value) < -3 || Number(value) > 5)));
-                fieldValidationErrors.paramY = paramYValid ? '' : 'Числоооо нужноооо от -3 до 5'
+                paramYValid = (!(isNaN(value) && value || !isNaN(value) && (Number(value) < -5 || Number(value) > 3)));
+                fieldValidationErrors.paramY = paramYValid ? '' : 'Введите число -5 до 3'
                 break;
             default:
                 break;
@@ -126,7 +127,7 @@ class PointForm extends React.Component {
         const {app} = this.props;
         return (
             <div className="commonGroup">
-                <div className="fillItPls">Заполните тут все, позязя</div>
+                <div className="fillItPls">Добро пожаловать в панель управления</div>
                 <div className="XR">
                     <div className="chooseR">
                         <label id="chooseRTitle" className="chooseRTitle">Выберите R</label>
@@ -152,7 +153,7 @@ class PointForm extends React.Component {
 
                 </div>
                 <div className="enterY">
-                    <Input onChange={this.handleChangeY} placeholder="Введите значение Y от -3 до 5" id="inp"/>
+                    <Input onChange={this.handleChangeY} placeholder="Введите значение Y от -5 до 3" id="inp"/>
                 </div>
                 <div className="formErrors">
                     <FormErrors formErrors={this.state.formErrors} answer={this.props.app.answer}/>

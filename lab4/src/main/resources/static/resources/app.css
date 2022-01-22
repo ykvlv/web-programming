@@ -55,7 +55,7 @@ table tbody tr:hover {
     color: white;
 }
 
-@media (min-width: 708px) {
+@media (min-width: 757px) {
     .centerBorderMain {
         box-shadow: 0 14px 28px rgba(0,0,0,0.25),
         0 10px 10px rgba(0,0,0,0.22);
@@ -184,8 +184,10 @@ table tbody tr:hover {
 }
 
 
-@media (max-width: 707px) {
+@media (max-width: 757px) {
     .centerBorderMain {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+        0 10px 10px rgba(0,0,0,0.22);
         display: block;
         background: white; /* Цвет фона */
         color: black; /* Цвет текста */
@@ -332,7 +334,6 @@ table tbody tr:hover {
     .checkButtonInside {
         background-color: white;
         border-color: #FF416C;
-        color: black;
         border-radius: 5px;
         width: 100% !important;
         height: 35px !important;
@@ -341,8 +342,10 @@ table tbody tr:hover {
 }
 
 
-@media (min-width: 1169px) {
+@media (min-width: 1269px) {
     .centerBorderMain {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+        0 10px 10px rgba(0,0,0,0.22);
         background: white; /* Цвет фона */
         color: black; /* Цвет текста */
         /* Поля вокруг текста */
@@ -374,7 +377,6 @@ table tbody tr:hover {
     border-radius: 5px;
     width: 130px;
     height: 30px;
-    color: black;
     font-family: "Montserrat", serif;
     font-size: 15px;
 }

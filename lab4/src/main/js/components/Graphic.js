@@ -97,13 +97,13 @@ class Graphic extends React.Component {
                     <text className="axis-text" x="290" y="170">X</text>
                     <text className="axis-text" x="160" y="13">Y</text>
 
-                    <polygon className="rectangle-figure" points="150,150 250,150 250,250, 150,250"
+                    <polygon className="rectangle-figure" points="150,150 200,150 200,50, 150,50"
                              fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
-                    <polygon className="triangle-figure" points="50,150 150,150 150,200"
+                    <polygon className="triangle-figure" points="150,250 150,150 250,150"
                              fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
-                    <path className="circle-figure" d="M 100 150 A 50 50, 180, 0, 1, 150 100 L 150 150 Z"
+                    <path className="circle-figure" d="M 50 150 A 100 100, 180, 0, 1, 150 50 L 150 150 Z"
                           fill="#FF416C" fillOpacity="0.7" stroke="#FF416C"/>
 
                     <polygon ref='frame' onClick={this.handleClickFrame} id="frame" className="frame"

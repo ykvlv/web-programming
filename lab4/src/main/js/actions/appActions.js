@@ -69,18 +69,11 @@ export function sendPoint(point) {
             .catch(error => {
                 console.log(error)
                 const answer = "Данные не отправлены, ошибка";
-                // TODO добавить вывод об ошибке
-                // dispatch({
-                //     type: SET_ANSWER,
-                //     payload: answer,
-                // });
+                dispatch({
+                    type: SET_ANSWER,
+                    payload: answer,
+                });
             });
-        // TODO зачем эти сбросы?
-        // dispatch({
-        //     type: SET_X,
-        //     payload: null,
-        // });
-        // document.getElementById("inp").value = "";
     }
 }
 
@@ -97,7 +90,7 @@ export function getPoints() {
             })
         }).catch(error => {
             console.log(error)
-            const answer = "Ошибка, данные не отправлены";
+            const answer = "Ошибка, не удается получить попадания.";
             dispatch({
                 type: SET_ANSWER,
                 payload: answer,
