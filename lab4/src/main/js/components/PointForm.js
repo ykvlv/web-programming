@@ -1,29 +1,15 @@
 import React from 'react';
-import { Dropdown } from "react-toolbox/lib/dropdown";
-import { Input } from "react-toolbox/lib/input";
+import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
+import { Slider } from 'react-toolbox/lib/slider';
+
 import FormErrors from "./FormErrors";
 import { connect } from 'react-redux';
 import { sendPoint, setAnswer, setR, setX, setY } from "../actions/appActions";
 
 // TODO переделать под себя
-const paramXValues = [
-    {value: '-4', label: '-4'},
-    {value: '-3', label: '-3'},
-    {value: '-2', label: '-2'},
-    {value: '-1', label: '-1'},
-    {value: '0', label: '0'},
-    {value: '1', label: '1'},
-    {value: '2', label: '2'},
-    {value: '3', label: '3'},
-    {value: '4', label: '4'}
-];
+const paramXValues = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
 
-const paramRValues = [
-    {value: '1', label: '1'},
-    {value: '2', label: '2'},
-    {value: '3', label: '3'},
-    {value: '4', label: '4'}
-];
+const paramRValues = [1, 2, 3, 4];
 
 
 class PointForm extends React.Component {
@@ -87,15 +73,15 @@ class PointForm extends React.Component {
 
         switch (fieldName) {
             case 'paramX':
-                paramXValid = (value != '');
+                paramXValid = (value !== '');
                 fieldValidationErrors.paramX = paramXValid ? '' : 'Вы же X не выбрали, повнимательнее';
                 break;
             case 'paramR':
-                paramRValid = (value != '');
+                paramRValid = (value !== '');
                 fieldValidationErrors.paramR = paramRValid ? '' : 'Вы же R не выбрали, повнимательнее';
                 break;
             case 'paramY':
-                paramYValid = (value != '');
+                paramYValid = (value !== '');
                 fieldValidationErrors.paramY = paramYValid ? '' : 'А Y я вводить буду?';
                 if (!paramYValid) break;
                 paramYValid = (!(isNaN(value) && value || !isNaN(value) && (Number(value) < -3 || Number(value) > 5)));
@@ -130,29 +116,25 @@ class PointForm extends React.Component {
                 <div className="XR">
                     <div className="chooseR">
                         <label id="chooseRTitle" className="chooseRTitle">Выберите R</label>
-                        <Dropdown
-                            auto
-                            onChange={this.handleChangeR}
-                            class="dropdown"
-                            source={paramRValues}
-                            value={app.r}
-                        />
+                        <RadioGroup value={app.r} onChange={this.handleChangeR}>
+                            {paramRValues.map(number =>
+                                <RadioButton key={number} label={number} value={number.toString()}/>
+                            )}
+                        </RadioGroup>
                     </div>
 
                     <div className="selectX">
                         <label id="selectXTitle" className="selectXTitle">Выберите X</label>
-                        <Dropdown
-                            auto
-                            onChange={this.handleChangeX}
-                            class="dropdown"
-                            source={paramXValues}
-                            value={app.x}
-                        />
+                        <RadioGroup value={app.x} onChange={this.handleChangeX}>
+                            {paramXValues.map(number =>
+                                <RadioButton key={number} label={number} value={number.toString()}/>
+                            )}
+                        </RadioGroup>
                     </div>
 
                 </div>
                 <div className="enterY">
-                    <Input onChange={this.handleChangeY} placeholder="Введите значение Y от -3 до 5" id="inp"/>
+                    <Slider min={-3} max={5} editable onChange={this.handleChangeY} />
                 </div>
                 <div className="formErrors">
                     <FormErrors formErrors={this.state.formErrors} answer={this.props.app.answer}/>

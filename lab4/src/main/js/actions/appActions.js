@@ -44,25 +44,27 @@ export function sendPoint(point) {
     return dispatch => {
         axios({
             url:            "/app",
-            type:           "POST",
-            contentType:    "application/json",
-            dataType:       "json",
+            method:         "POST",
             data:           data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
             .then(result => {
                 // TODO что здесь должно было вернуться?
-                console.log(result.data);
-                // if (result.data != null) {
-                //     dispatch({
-                //         type: SET_TABLE,
-                //         payload: result.data,
-                //     })
-                // } else {
-                //     dispatch({
-                //         type: SET_ANSWER,
-                //         payload: "Обмануть меня вздумали?"
-                //     })
-                // }
+                console.log(result);
+                console.log(result.data.message);
+                if (result.data.success) {
+                    dispatch({
+                        type: ADD_POINT,
+                        payload: result.data.object,
+                    })
+                } else {
+                    dispatch({
+                        type: SET_ANSWER,
+                        payload: result.data.message
+                    })
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -89,19 +91,17 @@ export function getPoints() {
             type:       "GET",
         }).then(data => {
             console.log(data);
-            // TODO Необходимо понять в какмо виде ожидаются данные
-            // dispatch({
-            //     type: SET_TABLE,
-            //     payload: data.data
-            // })
+            dispatch({
+                type: SET_TABLE,
+                payload: data.data.object
+            })
         }).catch(error => {
             console.log(error)
-            const answer = "Данные не отправлены, ошибка";
-            // TODO добавить вывод об ошибке
-            // dispatch({
-            //     type: SET_ANSWER,
-            //     payload: answer,
-            // });
+            const answer = "Ошибка, данные не отправлены";
+            dispatch({
+                type: SET_ANSWER,
+                payload: answer,
+            });
         });
     }
 }

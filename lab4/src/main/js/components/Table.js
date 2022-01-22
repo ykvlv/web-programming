@@ -6,28 +6,33 @@ class Table extends React.Component {
     render() {
         return (
             <div className="table">
-                <table value="">
-                    <tr>
-                        <th>X</th>
-                        <th>Y</th>
-                        <th>R</th>
-                        <th>Результат</th>
-                    </tr>
-                    {this.props.app.table.map((point, index) => {
-                        return (
-                            <tr key={index}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>x</th>
+                            <th>y</th>
+                            <th>r</th>
+                            <th>result</th>
+                            <th>owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.app.table.map(point =>
+                            <tr key={point.id}>
+                                <td>{point.id}</td>
                                 <td>{point.x}</td>
                                 <td>{point.y}</td>
                                 <td>{point.r}</td>
-                                <td>{point.result.toString()}</td>
+                                <td>{point.hit}</td>
+                                <td>{point.owner}</td>
                             </tr>
-                        );
-                    })}
+                        )}
+                    </tbody>
                 </table>
             </div>
         )
     }
-
 }
 
 const mapStateToProps = store => {

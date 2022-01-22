@@ -11,7 +11,7 @@
     "redux-thunk": "^2.4.1"
   },
   "scripts": {
-    "watch": "webpack --watch -d --output ./target/classes/static/bundle/bundle.js"
+    "watch": "webpack --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
