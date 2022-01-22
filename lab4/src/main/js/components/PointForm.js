@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
-import {Dropdown} from "react-toolbox/lib/dropdown";
-import {Input} from "react-toolbox/lib/input";
+import React from 'react';
+import { Dropdown } from "react-toolbox/lib/dropdown";
+import { Input } from "react-toolbox/lib/input";
 import FormErrors from "./FormErrors";
-import {connect} from 'react-redux'; // Component - класс из пакета react
-import {sendPoint, setAnswer, setR, setX, setY} from "../actions/appActions";
+import { connect } from 'react-redux';
+import { sendPoint, setAnswer, setR, setX, setY } from "../actions/appActions";
 
-// TODO слишком сложно
-
-
+// TODO переделать под себя
 const paramXValues = [
     {value: '-4', label: '-4'},
     {value: '-3', label: '-3'},
@@ -28,7 +26,7 @@ const paramRValues = [
 ];
 
 
-class PointForm extends Component {
+class PointForm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -121,7 +119,6 @@ class PointForm extends Component {
             formValid: this.state.paramXValid &&
                 this.state.paramYValid && this.state.paramRValid
         });
-
     }
 
 

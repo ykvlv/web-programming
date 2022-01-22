@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     entry: './src/main/js/index.js',
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     output: {
         path: __dirname,
         filename: './src/main/resources/static/bundle/bundle.js'
@@ -19,6 +19,11 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
                 }]
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ["source-map-loader"],
             },
             {
                 test: /\.css$/i,

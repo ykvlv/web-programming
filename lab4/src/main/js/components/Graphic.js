@@ -1,13 +1,13 @@
-import React, {Component} from 'react'; // Component - класс из пакета react
+import React from 'react';
 import '../index.css';
-import {connect} from 'react-redux'; // Component - класс из пакета react
+import {connect} from 'react-redux';
 import {sendPoint, setR, setX, setY} from "../actions/appActions";
 
+// TODO переделать график
 
-// TODO хоть бы запустилось ничего не проверяю уже
 let circles = [];
 
-class Graphic extends Component {
+class Graphic extends React.Component {
 
     constructor(props) {
         super(props);

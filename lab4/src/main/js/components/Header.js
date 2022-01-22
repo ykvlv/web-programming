@@ -1,7 +1,6 @@
-import React, {Component} from 'react'; // Component - класс из пакета react
+import React from 'react';
 
-
-class Header extends Component {
+class Header extends React.Component {
     render() {
         const { name, surname, variant, group } = this.props;
         return (
@@ -17,4 +16,3 @@ class Header extends Component {
 }
 
 export default Header;
-

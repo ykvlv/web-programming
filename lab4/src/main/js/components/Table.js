@@ -1,8 +1,8 @@
-import React, {Component} from 'react'; // Component - класс из пакета react
-import {connect} from 'react-redux'; // Component - класс из пакета react
+import React from 'react';
+import {connect} from 'react-redux';
 
 // TODO в каком виде хранятся?
-class Table extends Component {
+class Table extends React.Component {
     render() {
         return (
             <div className="table">
