@@ -1,4 +1,4 @@
-package ykvlv.lab4.oauth;
+package ykvlv.lab4.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;

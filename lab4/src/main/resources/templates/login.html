@@ -19,10 +19,10 @@
                     <a href="/oauth2/authorization/vk" class="social"><i class="fab fa-vk vk"></i></a>
                 </div>
                 <span>или используйте форму</span>
-                <span class="authError" id="registrationError"></span>
                 <label><input type="text" placeholder="Имя пользователя" id="username"/></label>
                 <label><input type="password" placeholder="Пароль" id="password"/></label>
                 <label><input type="password" placeholder="Подтвердите пароль" id="confirmPassword"/></label>
+                <span class="red" id="registrationError"></span>
                 <button type="submit" id="submit">РЕГИСТРАЦИЯ</button>
             </form>
         </div>
@@ -36,10 +36,10 @@
                 <span>или используйте свой логин</span>
                 <label><input type="text" placeholder="Имя пользователя" name="username" /></label>
                 <label><input type="password" placeholder="Пароль" name="password" /></label>
-                <span class="authError" th:if="${param.error}">
+                <span class="red" th:if="${param.error}">
                     Неверное имя пользователя или пароль
                 </span>
-                <span class="authError" th:if="${param.logout}">
+                <span class="green" th:if="${param.logout}">
                     Успешный выход из аккаунта
                 </span>
                 <button type="submit">ВХОД</button>

@@ -1,4 +1,4 @@
-package ykvlv.lab4.oauth;
+package ykvlv.lab4.security;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
+// Короче если провайдер не VK, то пусть обработкой займется DefaultOAuth2UserService
+// Иначе я просто в конец перекопированного метода loadUser сделаю нужные преобразования
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final RestOperations restOperations;
     private final Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
@@ -108,9 +110,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     "An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
             throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
         }
-        //извлекаем атрибуты из обертки "response"
+
+        //извлекаем атрибуты из обертки "response" (тупой VK)
         ArrayList<Map<String, Object>> valueList = (ArrayList<Map<String, Object>>) response.getBody().get("response");
         Map<String, Object> userAttributes = valueList.get(0);
+        // добавляем префикс vk
+        userAttributes.put(userNameAttributeName, "vk_" + userAttributes.get(userNameAttributeName));
         Set<GrantedAuthority> authorities = new LinkedHashSet<>();
         authorities.add(new OAuth2UserAuthority(userAttributes));
         OAuth2AccessToken token = userRequest.getAccessToken();

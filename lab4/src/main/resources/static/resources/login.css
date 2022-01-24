@@ -232,8 +232,12 @@ input {
     width: 50px;
 }
 
-.authError {
+.red {
     color: red;
+}
+
+.green {
+    color: forestgreen;
 }
 
 .ok {

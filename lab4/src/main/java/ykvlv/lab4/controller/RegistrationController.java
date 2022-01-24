@@ -1,6 +1,5 @@
 package ykvlv.lab4.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ykvlv.lab4.data.dto.Response;
 import ykvlv.lab4.data.dto.UserDto;
@@ -11,7 +10,7 @@ import ykvlv.lab4.exception.BadArgumentException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
 @RequestMapping("/registration")
 public class RegistrationController {
     private final UserService userService;
@@ -20,7 +19,6 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @ResponseBody
     @PostMapping
     public Response<User> registration(@RequestBody UserDto userDto, HttpServletRequest req) {
         try {

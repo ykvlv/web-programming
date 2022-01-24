@@ -1,51 +1,53 @@
-package ykvlv.lab4.oauth;
+package ykvlv.lab4.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final DataSource dataSource;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
         http
-                .authorizeRequests(a -> a
-                        .antMatchers("/", "/error", "/webjars/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-                .csrf(c -> c
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                )
-                .logout(l -> l
-                        .logoutSuccessUrl("/").permitAll()
-                )
-                .oauth2Login()
-                .tokenEndpoint()
-                .accessTokenResponseClient(accessTokenResponseClient())
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/", "/registration", "/resources/**", "/webjars/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .userInfoEndpoint()
-                // можно было бы использовать дефолтный сервис, НО VK ОБОРАЧИВАЕТ "response" в обертку "response"
-                .userService(new CustomOAuth2UserService());
-        // @formatter:on
+                    .formLogin().loginPage("/login").defaultSuccessUrl("/login", true)
+                    .permitAll()
+                .and()
+                    .logout()
+                    .permitAll()
+                .and()
+                    .oauth2Login().loginPage("/login")
+                    .tokenEndpoint()
+                    .accessTokenResponseClient(accessTokenResponseClient())
+                .and()
+                    .userInfoEndpoint()
+                    .userService(new CustomOAuth2UserService());
     }
 
     @Bean
@@ -66,5 +68,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         accessTokenResponseClient.setRestOperations(restTemplate);
         return accessTokenResponseClient;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // неужели это правда так криво конфигурируется(
+        auth
+                .jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder)
+                .usersByUsernameQuery("select username, password, active " +
+                        "from lab4_users " +
+                        "where username=?")
+                .authoritiesByUsernameQuery("select u.username, r.roles " +
+                        "from lab4_users u inner join lab4_roles r on u.id = r.user_id " +
+                        "where u.username=?");
     }
 }

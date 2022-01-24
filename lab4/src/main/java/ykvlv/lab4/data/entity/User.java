@@ -1,7 +1,5 @@
 package ykvlv.lab4.data.entity;
 
-import ykvlv.lab4.data.role.Role;
-
 import javax.persistence.*;
 import java.util.List;
 
