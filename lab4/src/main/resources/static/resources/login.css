@@ -29,7 +29,7 @@ p {
     font-size: 14px;
     font-weight: 100;
     line-height: 20px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     margin: 20px 0 30px;
 }
 
@@ -80,6 +80,10 @@ form {
     padding: 0 50px;
     height: 100%;
     text-align: center;
+}
+
+label {
+    width: 100%;
 }
 
 input {
