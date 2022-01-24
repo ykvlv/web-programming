@@ -4,6 +4,9 @@
 <head>
     <title>Логин</title>
     <link rel="stylesheet" href="./resources/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
@@ -15,7 +18,11 @@
         <div class="form-container sign-up-container">
             <form method="post" id="registration" action="/registration">
                 <h1>Создать аккаунт</h1>
-                <div> </div>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-odnoklassniki ok"></i></a>
+                    <a href="#" class="social"><i class="fab fa-vk vk"></i></a>
+                </div>
+                <span>или используйте форму</span>
                 <span class="authError" id="registrationError"></span>
                 <input type="text" placeholder="Имя пользователя" id="username"/>
                 <input type="password" placeholder="Пароль" id="password"/>
@@ -26,15 +33,19 @@
         <div class="form-container sign-in-container">
             <form action="/login" method="post">
                 <h1>Войти в аккаунт</h1>
-                <div> </div>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-odnoklassniki ok"></i></a>
+                    <a href="#" class="social"><i class="fab fa-vk vk"></i></a>
+                </div>
+                <span>или используйте свой логин</span>
+                <input type="text" placeholder="Имя пользователя" name="username" />
+                <input type="password" placeholder="Пароль" name="password" />
                 <span class="authError" th:if="${param.error}">
                     Неверное имя пользователя или пароль
                 </span>
                 <span class="authError" th:if="${param.logout}">
                     Успешный выход из аккаунта
                 </span>
-                <input type="text" placeholder="Имя пользователя" name="username" />
-                <input type="password" placeholder="Пароль" name="password" />
                 <button type="submit">ВХОД</button>
             </form>
         </div>

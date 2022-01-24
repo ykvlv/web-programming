@@ -40,7 +40,7 @@ span {
 
 a {
     color: #333;
-    font-size: 14px;
+    font-size: 20px;
     text-decoration: none;
     margin: 15px 0;
 }
@@ -213,6 +213,10 @@ input {
     transform: translateX(20%);
 }
 
+.social-container {
+    margin: 15px 0;
+}
+
 .social-container a {
     border: 1px solid #DDDDDD;
     border-radius: 50%;
@@ -220,12 +224,20 @@ input {
     justify-content: center;
     align-items: center;
     margin: 0 5px;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
 }
 
 .authError {
     color: red;
+}
+
+.ok {
+    color: orange;
+}
+
+.vk {
+    color: blue;
 }
 
 @media only screen and (max-width: 800px) {
