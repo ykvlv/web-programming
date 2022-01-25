@@ -31,6 +31,8 @@ public class UserService {
             throw new BadArgumentException("Имя пользователя пустое");
         } else if (username.matches("^vk_.*")) {
             throw new BadArgumentException("vk_ зарезервировано для авторизации");
+        } else if (username.matches("^ok_.*")) {
+            throw new BadArgumentException("ok_ зарезервировано для авторизации");
         } else if (username.length() < MIN_LENGTH) {
             throw new BadArgumentException("Минимальная длина имени пользователя — " + MIN_LENGTH);
         } else if (userRepository.existsByUsername(username)) {

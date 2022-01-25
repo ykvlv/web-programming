@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .permitAll()
                 .and()
-                    .oauth2Login().loginPage("/login")
+                    .oauth2Login().loginPage("/login").defaultSuccessUrl("/login", true)
                     .tokenEndpoint()
                     .accessTokenResponseClient(accessTokenResponseClient())
                 .and()

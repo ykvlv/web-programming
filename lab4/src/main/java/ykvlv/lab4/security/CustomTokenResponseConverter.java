@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import java.util.HashMap;
 import java.util.Map;
 
-// Был необходим собственный конвертер токенов т.к ТОЛЬКО VK не возвращает тип токена: 'token_type: Bearer'
-// Остальным провайдерам (Одноклассники) это не мешает
+// Был необходим собственный конвертер токенов т.к VK и ОДНОКЛАССНИКИ не возвращает тип токена: 'token_type: Bearer'
+// Остальным провайдерам это не мешает
 public class CustomTokenResponseConverter implements Converter<Map<String, Object>, OAuth2AccessTokenResponse> {
 
     @Override
@@ -18,9 +18,7 @@ public class CustomTokenResponseConverter implements Converter<Map<String, Objec
 
         OAuth2AccessToken.TokenType accessTokenType = OAuth2AccessToken.TokenType.BEARER;
 
-        Map<String, Object> additionalParameters = new HashMap<>();
-
-        tokenResponseParameters.forEach(additionalParameters::put);
+        Map<String, Object> additionalParameters = new HashMap<>(tokenResponseParameters);
 
         return OAuth2AccessTokenResponse.withToken(accessToken)
                 .tokenType(accessTokenType)

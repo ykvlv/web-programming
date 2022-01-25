@@ -30,11 +30,12 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-// Короче если провайдер не VK, то пусть обработкой займется DefaultOAuth2UserService
-// Иначе я просто в конец перекопированного метода loadUser сделаю нужные преобразования
+// Короче если провайдер не VK, OK, то пусть обработкой займется DefaultOAuth2UserService
+// Иначе я делаю нужные преобразования
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final RestOperations restOperations;
-    private final Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
+    // Кастомный конвертер
+    private final Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new CustomOAuth2UserRequestEntityConverter();
     private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";
 
     private static final String MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE = "missing_user_name_attribute";
@@ -53,13 +54,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
-
-        OAuth2User oAuth2User;
-
-        if (!userRequest.getClientRegistration().getRegistrationId().equals("vk")) {
-            oAuth2User = super.loadUser(userRequest);
-            return oAuth2User;
+        // Если это НЕ два наших пациента, то пусть их обработает родительский метод
+        if (!userRequest.getClientRegistration().getRegistrationId().equals("vk") &&
+                !userRequest.getClientRegistration().getRegistrationId().equals("ok")) {
+            return super.loadUser(userRequest);
         }
 
         Assert.notNull(userRequest, "userRequest cannot be null");
@@ -111,11 +109,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
         }
 
-        //извлекаем атрибуты из обертки "response" (тупой VK)
-        ArrayList<Map<String, Object>> valueList = (ArrayList<Map<String, Object>>) response.getBody().get("response");
-        Map<String, Object> userAttributes = valueList.get(0);
-        // добавляем префикс vk
-        userAttributes.put(userNameAttributeName, "vk_" + userAttributes.get(userNameAttributeName));
+        Map<String, Object> userAttributes = null;
+        // Если это наш уважаемый ВК — извлекаем атрибуты из обертки "response" (тупой VK)
+        if (userRequest.getClientRegistration().getRegistrationId().equals("vk")) {
+            ArrayList<Map<String, Object>> valueList = (ArrayList<Map<String, Object>>) response.getBody().get("response");
+            userAttributes = valueList.get(0);
+            // добавляем префикс vk
+            userAttributes.put(userNameAttributeName, "vk_" + userAttributes.get(userNameAttributeName));
+        }
+        // Если это ОДНОКЛАССНИКИ — добавим префикс
+        if (userRequest.getClientRegistration().getRegistrationId().equals("ok")) {
+            userAttributes = response.getBody();
+            userAttributes.put(userNameAttributeName, "ok_" + userAttributes.get(userNameAttributeName));
+        }
+
         Set<GrantedAuthority> authorities = new LinkedHashSet<>();
         authorities.add(new OAuth2UserAuthority(userAttributes));
         OAuth2AccessToken token = userRequest.getAccessToken();
