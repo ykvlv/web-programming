@@ -8,7 +8,7 @@
 Серверная часть — PHP.
 Валидация и отправка — JS.
 
-![lab1.png](https://github.com/ykvlv/web-programming/raw/main/pics/lab1.png)
+![lab1.png](./pics/lab1.png)
 
 
 ## lab2
@@ -17,7 +17,7 @@
 Серверная часть — Java Servlet.
 Веб — JSP, JSTL.
 
-![lab2.png](https://github.com/ykvlv/web-programming/raw/main/pics/lab2.png)
+![lab2.png](./pics/lab2.png)
 
 
 ## lab3
@@ -26,7 +26,7 @@
 Серверная часть — JavaEE, JDBC.
 Веб — JSF, PrimeFaces.
 
-![lab3.png](https://github.com/ykvlv/web-programming/raw/main/pics/lab3.png)
+![lab3.png](./pics/lab3.png)
 
 
 ## lab4
@@ -37,5 +37,6 @@
 
 Доп: авторизация через Вконтакте и Одноклассники. OAuth2.
 
-![lab4.1.png](https://github.com/ykvlv/web-programming/raw/main/pics/lab4.1.png)
-![lab4.2.png](https://github.com/ykvlv/web-programming/raw/main/pics/lab4.2.png)
+![lab4.1.png](./pics/lab4.1.png)
+![lab4.2.png](./pics/lab4.2.png)
+
